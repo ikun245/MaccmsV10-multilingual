@@ -1,5 +1,6 @@
 # 苹果cms V10 多语言版本
-
+![](https://github.com/ikun245/MaccmsV10-multilingual/imageforshow/1.png)
+![](https://github.com/ikun245/MaccmsV10-multilingual/imageforshow/2.png)
 
 
 ## 1. 多语言支持
