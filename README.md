@@ -1,8 +1,8 @@
 # 苹果cms V10 多语言版本
-![](https://github.com/ikun245/MaccmsV10-multilingual/imageforshow/1.png)
-![](https://github.com/ikun245/MaccmsV10-multilingual/imageforshow/2.png)
 
 
+![中文](https://github.com/ikun245/MaccmsV10-multilingual/blob/main/imageforshow/1.png)
+![日语](https://github.com/ikun245/MaccmsV10-multilingual/blob/main/imageforshow/2.png)
 ## 1. 多语言支持
 
 ### 1.1 根据IP地址自动显示语言
