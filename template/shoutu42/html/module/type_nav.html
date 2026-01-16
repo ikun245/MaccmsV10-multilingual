@@ -1,0 +1,49 @@
+<div class="page-heading">
+	<h1 class="page-title">{if$obj.type_1!=''}{$obj.type_1.type_name}{else}{$obj.type_name}{/if}</h1>
+	<div class="list-header scroll-box category">
+		<div class="block-box-items scroll-content swiper-wrapper">
+		    {if $obj.childids || $obj.parent.childids}
+			{if condition="$obj.type_pid eq 0"}
+			<div class="block-box-item swiper-slide selected">
+			   <a class="block-box-content" href="{:mac_url_type($obj.type_id,['id'=>$obj['type_id']],'show')}" title="精选">
+			       <strong class="title">{if$obj.type_1!=''}{$obj.type_1.type_name}{else}{$obj.type_name}{/if}精选</strong></a>
+				<div class="block-box-bg">精选</div>
+			</div>
+			{maccms:type ids="current" order="asc" by="sort" id="vo2" key="key2"}
+			<div class="block-box-item swiper-slide {if condition="$obj.type_pid eq $vo2.type_id"}selected{/if}">
+			  <a class="block-box-content" href="{:mac_url_type($vo2,[],'type')}" title="{$vo2.type_name}">
+			  <strong class="title">{$vo2.type_name}</strong></a>
+				<div class="block-box-bg">{$vo2.type_name}</div>
+			</div>
+			{/maccms:type}
+			{else /}
+			<div class="block-box-item swiper-slide {if condition="$obj.type_pid eq ''"}selected{/if}">
+			   <a class="block-box-content" href="{:mac_url_type($obj.type_pid,['id'=>$obj['type_pid']],'show')}" title="精选">
+			       <strong class="title">{if$obj.type_1!=''}{$obj.type_1.type_name}{else}{$obj.type_name}{/if}精选</strong></a>
+				<div class="block-box-bg">精选</div>
+			</div>
+			{maccms:type parent="'.$obj['type_pid'].'" order="asc" by="sort" id="vo2" key="key2"}
+			<div class="block-box-item swiper-slide {if condition="$obj.type_id eq $vo2.type_id"}selected{/if}">
+			   <a class="block-box-content" href="{:mac_url_type($vo2,[],'type')}" title="精选">
+			       <strong class="title">{$vo2.type_name}</strong></a>
+				<div class="block-box-bg">{$vo2.type_name}</div>
+			</div>
+			{/maccms:type}
+			{/if}
+			 {else/}
+			 {maccms:foreach  name=":explode(',',$obj.type_extend.area)" id="vo1" key="key1"} 
+            <div class="block-box-item swiper-slide">
+            <a class="block-box-content" href="{:mac_url_type($obj,['area'=>$vo1],'show')}"  title="{$vo1}{$obj.type_name}"><strong class="title">{$vo1}{$obj.type_name}</strong></a>
+            <div class="block-box-bg">{$vo1}{$obj.type_name}</div>
+          </div>
+           {/maccms:foreach}  
+			
+			{/if}
+			<div class="space-line-bold swiper-slide"></div>
+			<div class="block-box-item swiper-slide">
+			    <a class="block-box-content" href="{:mac_url_type($obj,[],'show')}" title="查看全部影片"><strong class="title">影片库</strong></a>
+				<div class="block-box-bg"><i class="icon-jiangzhang"></i></div>
+			</div>
+		</div>
+	</div>
+</div>

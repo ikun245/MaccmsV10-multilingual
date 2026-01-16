@@ -1,0 +1,29 @@
+
+<div class="module">
+	<div class="module-heading">
+		<h2 class="module-title" title="{$obj.vod_name}同系列影片">系列影片</h2>
+	</div>
+	<div class="module-list module-lines-list">
+		<div class="module-items scroll-box">
+			<div class="scroll-content">
+			     {maccms:vod by="time" num="12" order="desc" by="time" wd="'.substr($obj['vod_name'],0,12).'"}
+				<div class="module-item module-item-go">
+					<div class="module-item-cover">
+						<div class="module-item-pic">
+							<a href="{:mac_url_vod_detail($vo)}" title="{$vo.vod_name}">
+							<img referrerpolicy="no-referrer" class="lazy" data-original="{$vo.vod_pic|mac_url_img}" src="{$shoutu.poster.lopimg}" alt="{$vo.vod_name}">
+							</a>
+						</div>
+					</div>
+					<div class="module-item-titlebox">
+						<a href="{:mac_url_vod_detail($vo)}" class="module-item-title" title="{$vo.vod_name}">{$vo.vod_name}</a>
+					</div>
+					{if $shoutu.poster.text_is}
+					<div class="module-item-text"><span>{$vo[''.$shoutu.poster.text.'']|mac_default='内详'}</span></div>
+					{/if}
+				</div>
+			 {/maccms:vod}
+			</div>
+		</div>
+	</div>
+</div>

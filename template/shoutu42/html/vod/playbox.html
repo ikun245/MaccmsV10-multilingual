@@ -1,0 +1,23 @@
+	<div class="player-box">
+				<div class="player-box-main">
+    			<div class="tips-box"><span class="close-btn"><i class="icon-close-o"></i></span>
+                <div class="tips-swiper">
+                <ul class="tips-list swiper-wrapper">
+                    <li class="swiper-slide">正在播放《{$obj.vod_name}》{$obj['vod_play_list'][$param['sid']]['urls'][$param['nid']]['name']} - {$obj['vod_play_list'][$param['sid']]['player_info']['show']}</li>
+                    <li class="swiper-slide"><span class="btn-main">提醒</span>不要轻易相信视频中的任何广告，谨防上当受骗</li>
+                    <li class="swiper-slide"><span class="btn-yellow">技巧</span>如遇视频无法播放或加载速度慢，可尝试切换播放节点</li>
+                    <li class="swiper-slide"><span class="btn-yellow">收藏</span>{$maccms.site_name}网址：<strong>{$maccms['site_url']}&nbsp; ,记得收藏哟～</strong></li>
+                </ul>
+                </div>  
+              </div>
+			<div class="player-wrapper">
+			{if $shoutu.player.ali_is}    
+        	<div class="video-iframe get-hits MacPlayer" data-id="{$obj.vod_id}" data-mid="{$param.sid}" data-sid="{$param.nid}" data-nid="{$param.nid}" data-uid="0" data-name="{$obj.vod_name}" data-title="{$obj['vod_play_list'][$param['sid']]['urls'][$param['nid']]['name']}" data-link="{:mac_url_vod_play($obj,['sid'=>$param['sid'],'nid'=>$param['nid']])}" data-pic="{$obj.vod_pic|mac_url_img}" data-detail="{:mac_url_vod_play($obj)}" data-limit="12" data-color="#16baaa" data-jiexi="" data-play="{$obj['vod_play_list'][$param['sid']]['urls'][$param['nid']]['url']}" data-next="{$obj.player_info.link_next}" data-pre="{$obj.player_info.link_pre} " data-art-id="1">
+            </div>
+        	{else}
+        	{$player_data}{$player_js}
+	        {/if}
+        </div>  
+		</div>
+	</div>
+

@@ -1,0 +1,61 @@
+    {if condition="$for.is && $for.block eq 'vod_list2'"} 
+    {maccms:type ids="'.$for['type'].'" order="asc" by="sort" id="vo1" key="key1"}
+     	<div class="module module-wrapper" data-index="{$vo1.type_id}">
+					<div class="module-side">
+						<div class="module-heading">
+							<h2 class="module-title">{$vo1.type_name}<span>•</span>{$for.title}</h2>
+						</div>
+						<div class="module-side-list">
+							<div class="scroll-box">
+								<div class="module-textlist scroll-content">
+								    {maccms:vod num="10"  type="'.$vo1['type_id'].'" order="desc" by="hits_week"  id="vo" key="key"}  
+								    {include file="block/vod_rank"}
+							    	{/maccms:vod}		
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="module-main module-bg">
+						<div class="module-heading">
+							<h2 class="module-title">{$vo1.type_name}</h2>
+							{if$vo1.childids||$vo1.parent.childids}
+							<div class="module-tab">
+							    <input type="hidden" name="tab" id="tab" class="module-tab-input">
+							    <label class="module-tab-name">
+							     <span class="module-tab-value">推荐</span><i class="icon-arrow-bottom"></i>
+							     </label>
+								<div class="module-tab-items">
+									<div class="module-tab-title">选择类型<span class="close-drop"><i class="icon-close-o"></i></span></div>
+									<div class="module-tab-items-box">
+									    <span class="module-tab-item tab-item selected" data-dropdown-value="推荐">推荐</span>
+									    {maccms:type parent="'.$vo1['type_id'].'" order="asc" by="sort" id="vo2" key="key2"}
+									    <span class="module-tab-item tab-item" data-dropdown-value="{$vo2.type_name}">{$vo2.type_name}</span>
+										{/maccms:type}	
+									</div>
+								</div>
+							</div>
+							{else/}
+							<a class="more" href="{:mac_url_type($vo1,[],'type')}" title="更多{$vo1.type_name}">更多<i class="icon-arrow-right-o"></i></a>
+						    {/if}
+							<div class="shortcuts-m-overlay"></div>
+						</div>
+						<div class="module-list module-lines-list tab-list selected">
+							<div class="module-items module-poster-items-base">
+							 {maccms:foreach name=":config_vodlist2($vo1.type_id,$for,14,$obj.vod_id)" id="vo" key="key"}
+                        	 {include file="block/vod_box"}
+                        	 {/maccms:foreach}
+							</div>
+						</div>
+						{maccms:type parent="'.$vo1['type_id'].'" order="asc" by="sort" id="vo2" key="key2"}
+						<div class="module-list module-lines-list tab-list">
+							<div class="module-items module-poster-items-base">
+							{maccms:foreach name=":config_vodlist2($vo2.type_id,$for,14,$obj.vod_id)" id="vo" key="key"}
+                        	{include file="block/vod_box"}
+                            {/maccms:foreach}
+							</div>
+						</div>
+						{/maccms:type}	
+					</div>
+				</div>
+		{/maccms:type}		
+        {/if}  

@@ -1,0 +1,47 @@
+       <div class="module-search-item">
+            <div class="video-cover">
+              <div class="module-item-cover">
+                <div class="module-item-pic"><a href="{:mac_url_vod_play($vo)}" title="立刻播放{$vo.vod_name}"><i class="icon-play"></i></a>
+            <img referrerpolicy="no-referrer" class="lazy" data-original="{$vo.vod_pic|mac_url_img}" src="{$shoutu.poster.lopimg}" alt="{$vo.vod_name}">
+                </div>
+              </div>
+            </div>
+            <div class="video-info">
+              <div class="video-info-header">
+                  <a class="video-serial" href="{:mac_url_vod_detail($vo)}" title="{$vo.vod_name}">
+                     {if $shoutu.poster.text_is}{$vo[''.$shoutu.poster.text.'']|mac_default='内详'}{/if} 
+                  </a>
+                <h3><a href="{:mac_url_vod_detail($vo)}" title="{$vo.vod_name}">{$vo.vod_name}</a></h3>
+                <div class="video-info-aux">
+                <a href="{if$vo.type_1!=''}{:mac_url_type($vo.type_1)}{else}{:mac_url_type($vo.type)}{/if}" title="{if$vo.type_1!=''}{$vo.type_1.type_name}{else}{$vo.type.type_name}{/if}" class="tag-link"><span class="video-tag-icon">
+                    <i class="icon-jiangzhang"></i>
+                    {if$vo.type_1!=''}{$vo.type_1.type_name}{else}{$vo.type.type_name}{/if}</span></a>
+                	<div class="tag-link">{$vo.vod_year|mac_url_create='year','vod','search'}</div>
+                  <div class="tag-link">{$vo.vod_area|mac_url_create='area','vod','search'}</div>
+                 </div>
+              </div>
+              <div class="video-info-main">
+                  <div class="video-info-items"><span class="video-info-itemtitle">导演：</span>
+                 	<div class="video-info-item video-info-actor"><span class="slash">/</span>
+					    {$vo.vod_director|mac_default='未知'|mac_url_create='director','vod','search','<span class="slash">/</span>'}
+						</div>
+                </div>
+                <div class="video-info-items"><span class="video-info-itemtitle">主演：</span>
+                 <div class="video-info-item video-info-actor"><span class="slash">/</span>
+						{$vo.vod_actor|mac_default='未知'|mac_url_create='actor','vod','search','<span class="slash">/</span>'}
+						</div>
+                </div>
+                  <div class="video-info-items"><span class="video-info-itemtitle">剧情：</span>
+                  <div class="video-info-item">{$vo.vod_content|mac_filter_html|mac_default='暂无剧情'}</div>
+                </div>
+              </div>
+              <div class="video-info-footer">
+                  {if condition="$vo.vod_play_from"}
+                 <a href="{:mac_url_vod_play($vo)}" class="btn-important btn-base" title="立刻播放{$vo.vod_name}"><i class="icon-play"></i><strong>立即播放</strong></a>
+                 {/if}
+                {if condition="$vo.vod_down_from"}
+                 <a href="{:mac_url_vod_detail($vo)}/#download-list" class="btn-aux btn-aux-o btn-base" title="下载{$vo.vod_name}"><i class="icon-download"></i><strong>下载</strong></a>
+               	{/if}
+              </div>
+            </div>
+          </div>

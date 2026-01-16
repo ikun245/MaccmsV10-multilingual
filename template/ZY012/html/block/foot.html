@@ -1,0 +1,69 @@
+<div class="hide">{$maccms.site_tj}</div>
+<!-- 引入主动推送 -->
+
+{include file="public/baidu_zidong_tuisong"}
+<!-- 360主动推送 -->
+<script>
+(function(){
+var src = (document.location.protocol == "http:") ? "http://js.passport.qihucdn.com/11.0.1.js?85b2897187df96ebf508a8f2097c0428":"https://jspassport.ssl.qhimg.com/11.0.1.js?85b2897187df96ebf508a8f2097c0428";
+document.write('<script src="' + src + '" id="sozz"><\/script>');
+})();
+</script><script src="{$maccms.path_tpl}statics/js/translate.js"></script>
+<script>
+    function setLangCookie(lang) {
+        document.cookie = "lang=" + lang + "; path=/; max-age=31536000";
+    }
+
+    function initTranslate(lang) {
+        translate.service.use("client.edge");
+        translate.selectLanguageTag.show = false;
+        translate.setAutoDiscriminateLocalLanguage();
+        translate.language.translateLanguagesRange = ["chinese_simplified"];
+        translate.changeLanguage(lang);
+    }
+
+    var currentLang = localStorage.getItem("lang");
+    if (currentLang) {
+        if (document.cookie.replace(/(?:(?:^|.*;\s*)lang\s*\=\s*([^;]*).*$)|^.*$/, "$1") !== currentLang) {
+            setLangCookie(currentLang);
+        }
+        initTranslate(currentLang);
+    } else {
+        // Default init to avoid delay
+        initTranslate('chinese_simplified');
+        
+        // IP Detection
+        $.ajax({
+            url: 'https://ipapi.co/json/',
+            timeout: 5000,
+            success: function(data) {
+                var code = data.country_code;
+                var map = {
+                    'CN': 'chinese_simplified', 'HK': 'chinese_traditional', 'TW': 'chinese_traditional',
+                    'US': 'english', 'GB': 'english', 'CA': 'english', 'AU': 'english',
+                    'JP': 'japanese', 'KR': 'korean', 'FR': 'french', 'ES': 'spanish',
+                    'IT': 'italian', 'DE': 'deutsch', 'TR': 'turkish', 'RU': 'russian',
+                    'VN': 'vietnamese', 'TH': 'thai', 'KH': 'khmer', 'LA': 'lao',
+                    'MY': 'malay', 'ID': 'indonesian', 'PL': 'polish', 'NL': 'dutch',
+                    'PT': 'portuguese', 'BR': 'portuguese'
+                };
+                var detected = map[code] || 'english';
+                
+                localStorage.setItem("lang", detected);
+                setLangCookie(detected);
+                
+                if (detected !== 'chinese_simplified') {
+                    location.reload();
+                }
+            }
+        });
+    }
+
+    $(".languagemenu_item").on("click", function() {
+        var targetLang = $(this).data("lang");
+        localStorage.setItem("lang", targetLang);
+        setLangCookie(targetLang);
+        $(".languagemenu_container").hide();
+        location.reload();
+    });
+</script>

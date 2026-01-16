@@ -1,0 +1,13 @@
+                            <div class="module-item">
+								<div class="module-item-cover">
+								    <a href="{:mac_url_vod_detail($vo)}" title="{$vo.vod_name}" class="module-item-pic">
+								        <img  referrerpolicy="no-referrer" class="lazy" data-original="{$vo.vod_pic|mac_url_img}"
+											src="{$shoutu.poster.lopimg}" alt="{$vo.vod_name}">
+									</a></div>
+								<div class="module-item-titlebox">
+								    <a href="{:mac_url_vod_detail($vo)}" class="module-item-title" title="{$vo.vod_name}">{$vo.vod_name}</a>
+								</div>
+								{if $shoutu.poster.text_is}
+								<div class="module-item-text">{$vo[''.$shoutu.poster.text.'']|mac_default='内详'}</div>
+								{/if}
+							</div>

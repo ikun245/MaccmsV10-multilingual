@@ -1,0 +1,42 @@
+	<nav class="app-nav">
+			<div class="container">
+				<div class="title-box">
+					<h2 class="h3-md">类型</h2>
+				</div>
+				<div class="row gutter-20 pb-5">
+				    
+	            <li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item  col-6 col-sm-4 col-lg-3 mb-3">
+						<a href="{$maccms.path}" class="h5 text-light">🏠 首页</a>
+				</li>
+				{maccms:foreach name="$shoutu.nav_b.data" id="vo" key="key"}	
+                 {if $vo.is}
+                {if condition="$vo.type eq 'web'"} 
+				<li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item  col-6 col-sm-4 col-lg-3 mb-3">
+						<a  {if $vo.blank} target="_blank"{/if} href="{$vo.val}" class="h5 text-light">{$vo.title}</a>
+				</li>
+				{elseif condition="$vo.type eq 'url'"}
+				<li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item  col-6 col-sm-4 col-lg-3 mb-3">
+						<a  {if $vo.blank} target="_blank"{/if} href="{:mac_url($vo.val)}" class="h5 text-light">{$vo.title}</a>
+				</li>
+				{else /}
+				<li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item  col-6 col-sm-4 col-lg-3 mb-3">
+						<a {if $vo.blank} target="_blank"{/if} href="{:mac_url_type(['type_mid'=>$vo.type,'type_id'=>$vo.val])}" class="h5 text-light">{$vo.title}</a>
+				</li>
+				 {/if}
+                {/if}
+                {/maccms:foreach}
+				</div>
+				  {if $shoutu.set.hottag_is}
+				<div class="title-box">
+					<h2 class="h3-md">热门标签</h2>
+				</div>
+				<div class="row gutter-20 pb-3">
+				    {maccms:foreach name=":explode(',',''.$shoutu['set']['hottag'].'')" id="vo" key="key"}
+					<div class="col-6 col-sm-4 col-lg-3 mb-3">
+						<a class="tag text-light" href="{:mac_url('vod/search',['class'=>$vo])}" title="{$vo}">{$vo}</a>
+					</div>
+					{/maccms:foreach}
+				</div>
+				   {/if}
+			</div>
+		</nav>

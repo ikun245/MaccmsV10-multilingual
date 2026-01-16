@@ -1,0 +1,32 @@
+ <div class="swiper-container pt20">
+      <div class="swiper-wrapper">
+          {maccms:vod num="8" type="all" order="desc" by="time" level="9"}
+         <div class="swiper-slide">
+        <a class="stui-slide banner" data-name="{$vo.vod_name}" data-fname="{if $shoutu.slide.subtitle3_is}{$vo[''.$shoutu.slide.subtitle3.'']|mac_default='内详'}{/if}" href="{:mac_url_vod_detail($vo)}"  href="{:mac_url_vod_detail($vo)}" style="background: url({$vo.vod_pic_slide|mac_url_img}) center no-repeat;  background-size: cover;">
+            <div class="large-t"></div>
+            <div class="large-r"></div>
+            <div class="large-l"></div>
+            <div class="large-b"></div>
+          <div class="txt-info">
+           {if $shoutu.slide.subtitle1_is}  
+           {if (strpos($shoutu.slide.subtitle1, 'class') !== false)}
+            <p class="gate"><span>{$vo.type.type_name}</span></p>
+            {else}
+             <p class="gate"><span>{$vo[''.$shoutu.slide.subtitle1.'']|mac_default='内详'}</span></p>
+            {/if}
+             {/if}
+            <p class="name">{$vo.vod_name}</p>
+             {if $shoutu.slide.subtitle2_is}
+            <p class="info">{$vo[''.$shoutu.slide.subtitle2.'']|mac_default='内详'}</p>
+            {/if}
+          </div>
+          </a>
+        </div>
+           	{/maccms:vod}		  
+      </div>
+        <ul class="swiper-pagination"></ul>
+    </div>
+<style>
+.swiper-container{margin-left:auto;margin-right:auto;position:relative;overflow:hidden;list-style:none;padding:0;z-index:1 }.swiper-container-vertical>.swiper-wrapper{flex-direction:column }.swiper-container-android .swiper-slide,.swiper-wrapper{transform:translate3d(0,0,0) }.swiper-container-multirow>.swiper-wrapper{flex-wrap:wrap }.swiper-container-multirow-column>.swiper-wrapper{flex-wrap:wrap;flex-direction:column }.swiper-container-free-mode>.swiper-wrapper{transition-timing-function:ease-out;margin:0 auto }.swiper-slide{flex-shrink:0;width:100%;height:100%;position:relative;transition-property:transform }.stui-slide {display: block;}.stui-slide.banner {padding-top: 35%;}@media (max-width:767px) {.stui-slide.banner {padding-top: 45%;}}.txt-info {position: absolute;bottom: 3vw;left: 6vw;width: 68%;color: #fff;z-index: 10;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 4;text-overflow: ellipsis;overflow: hidden;}.txt-info .gate span {background-color: rgba(0, 0, 0, .5);display: inline-block;padding: 0 6px;border-radius: 2px;font-size: 11px;line-height: 20px;height: 20px;opacity: .65;text-align: center;}.txt-info .name {font-size: 24px;color: #fff;font-weight: 700;}.txt-info .info {max-width: 60%;font-size: 14px;opacity: .8;}.header-content{z-index: 99;}.page .header-content .search-box {-webkit-backdrop-filter: blur(10px);backdrop-filter: blur(10px);border: 1px solid #ffffff24;box-shadow: 0 0 2px 0 #00000017;background-color: #0000;}.nav-search .search-input{background-color: #0000;}.nav-search .search-focus{background-color: #0000;}.nav-search .search-btn{background-color: #0000;}.nav-search .ac_hot::after{height: 0;top: 0;}.ac_hot{border-radius: 10px;margin-top: 5px;}.page.mobile-open .header-content .nav-search.block .search-box{background: #fff;}.large-l{background-image:-webkit-gradient(linear,right top,left top,from(rgba(22,22,26,0)),to(#111319));background-image:-webkit-linear-gradient(right,rgba(22,22,26,0),#111319);background-image:linear-gradient(270deg,rgba(22,22,26,0),#111319);left:0;top:0;position:absolute;width:20%;height:100% }.large-r{background-image:-webkit-gradient(linear,left top,right top,from(rgba(22,22,26,0)),to(#111319));background-image:-webkit-linear-gradient(left,rgba(22,22,26,0),#111319);background-image:linear-gradient(90deg,rgba(22,22,26,0),#111319);position:absolute;right:0;top:0;width:20%;height:100% }.large-t{width:100%;height:20%;position:absolute;top:0;left:0;-webkit-transform:scaleY(-1);-ms-transform:scaleY(-1);transform:scaleY(-1);background:-webkit-gradient(linear,left top,left bottom,from(rgba(22,22,26,0)),to(#111319));background:-webkit-linear-gradient(top,rgba(22,22,26,0),#111319 100%);background:linear-gradient(180deg,rgba(22,22,26,0),#111319 100%);z-index:10 }.large-b{position:absolute;left:0;height:20%;width:100%;bottom:0;z-index:9;background:-webkit-gradient(linear,left top,left bottom,from(rgba(22,22,26,0)),to(#111319));background:-webkit-linear-gradient(top,rgba(22,22,26,0),#111319 100%);background:linear-gradient(180deg,rgba(22,22,26,0),#111319 100%) }.swiper-pagination-bullet {-webkit-flex-shrink: 0;-ms-flex-negative: 0;flex-shrink: 0;width: 100%;height: auto;position: relative;-webkit-transition-property: -webkit-transform;transition-property: -webkit-transform;transition-property: transform;transition-property: transform,-webkit-transform;background-color: initial;}.swiper-horizontal>.swiper-pagination-bullets {position: absolute;top: 5.8vw;right: 3.8%;width: 19%;z-index: 10;display: flex;flex-direction: column;flex-wrap: nowrap;justify-content: center;}.swiper-horizontal .pagination-item{text-align: right;cursor: pointer;}.focusswiper_nav_slide {width: 100%;display: block;padding: 0.7vw;}@media (min-width: 1200px) and (max-width: 1400px) {.focusswiper_nav_slide{padding: 0.4vw;}.swiper-horizontal>.swiper-pagination-bullets{top: 7vw;}}.focusswiper_nav_slide h2 {color: hsla(0, 0%, 100%, .8);font-size: 16px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;display: block;}.swiper-pagination-bullet.swiper-pagination-bullet-active h2 {font-size: 20px;font-weight: 700;}.stui_sub_title {display: none;font-size: 12px;color: #fff;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}.swiper-pagination-bullet.swiper-pagination-bullet-active .sub_title {display: block;}.swiper-pagination-bullet.swiper-pagination-bullet-active .focusswiper_nav_slide {background: linear-gradient(90deg, hsla(0, 0%, 100%, 0), hsla(0, 0%, 100%, .1) 77%, hsla(0, 0%, 100%, 0));}@media (max-width: 1200px) {.swiper-pagination {display: none!important;}}@media(min-width: 899px) {#header{position: absolute;}.pt20{padding-bottom: 20px;}.page .header-content{background: none;}}.page .header-bg{background: rgba(7, 7, 10, .92);}@media(max-width: 899px) {.page #header{margin-bottom: 0;}.txt-info{bottom: 3vw;left: 3vw;}}@media (max-width: 559px) {.txt-info {width: 100%;-webkit-line-clamp: 3;}.txt-info .info {max-width: 95%;}.large-b{height: 35%;}.mobile-open .ac_hot{margin-top: 0;}}
+</style>
+

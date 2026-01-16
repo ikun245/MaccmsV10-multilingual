@@ -1,0 +1,195 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE10" />
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<link rel="shortcut icon" href="{$maccms.path_tpl}statics/img/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="{$maccms.path_tpl}statics/font/iconfont.css" type="text/css" />
+<link rel="stylesheet" href="{$maccms.path_tpl}statics/css/stui_default.css" type="text/css" />
+<style>
+.container {
+	width: 90% !important;
+	max-width: none !important;
+}
+.stui-vodlist li {
+	width: 20% !important;
+}
+.related-item.hide {
+	display: none;
+}
+.stui-player-wrap {
+	display: flex;
+	flex-wrap: wrap;
+}
+.stui-player__video-side {
+	width: 80%;
+}
+.stui-player__ad-side {
+	width: 20%;
+	display: flex;
+	flex-direction: column;
+}
+.stui_header__user .header-search-item {
+	width: 200px;
+	margin-right: 10px;
+	position: relative;
+	margin-left: 10px;
+}
+.stui_header__user .header-search-item .form-control {
+	border-radius: 20px;
+	background: #f5f5f5;
+	border: none;
+	height: 30px;
+	margin-top: 0px;
+}
+.stui_header__user .header-search-item .submit {
+	position: absolute;
+	right: 10px;
+	top: 0px;
+	height: 30px;
+	background: none;
+	border: none;
+	color: #999;
+}
+@media (max-width: 767px) {
+	.container {
+		width: 100% !important;
+	}
+	.stui-vodlist li {
+		width: 50% !important;
+	}
+	.stui_header__user .header-search-item {
+		width: 120px;
+		margin-right: 5px;
+	}
+	.stui-player__video-side, .stui-player__ad-side {
+		width: 100% !important;
+	}
+	.stui-player__ad-side {
+		flex-direction: row !important;
+		margin-top: 10px;
+	}
+	.stui-player__ad-side div {
+		flex: 1;
+		padding: 0 5px !important;
+	}
+}
+#languageToggle {
+	font-size: 14px;
+	line-height: 30px;
+	padding: 0 10px;
+	display: block;
+}
+.languagemenu_container {
+	right: -10px;
+	width: 150px;
+	max-height: 400px;
+	overflow-y: auto;
+	padding: 10px 0 !important;
+}
+
+.languagemenu_container .languagemenu_item {
+	display: block;
+	padding: 8px 15px;
+	font-size: 14px;
+	color: #333;
+	cursor: pointer;
+	text-align: left;
+}
+
+.languagemenu_container .languagemenu_item:hover {
+	background: #f5f5f5;
+	color: #ff6600;
+}
+.stui_header__user {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	margin-bottom: 0;
+}
+.stui_header__user li {
+	margin-left: 15px;
+	display: flex;
+	align-items: center;
+	height: 40px;
+}
+.stui_header__user li a {
+	font-size: 14px;
+	line-height: 1;
+	display: flex;
+	align-items: center;
+}
+.stui_header__user li a img {
+	display: inline-block;
+	vertical-align: middle;
+}
+.header-search-item {
+	margin-right: auto;
+}
+.header-search-item form {
+	display: flex;
+	align-items: center;
+}
+.login-menu {
+	width: 200px;
+	right: 0;
+	left: auto;
+}
+.login-menu .head {
+	padding: 10px;
+	border-bottom: 1px solid #eee;
+}
+.login-menu .head h5 {
+	margin: 0;
+	font-size: 14px;
+	font-weight: bold;
+}
+.stui_header__user .dropdown.login-menu {
+	width: 280px;
+	padding: 0;
+}
+.stui_header__user .dropdown.login-menu .head {
+	padding: 10px 15px;
+	border-bottom: 1px solid #eee;
+}
+.stui_header__user .dropdown.login-menu .head h5 {
+	margin: 0;
+	font-weight: bold;
+}
+.stui_header__user .dropdown.login-menu ul li {
+	display: block;
+	width: 100%;
+	padding: 0;
+	border-bottom: 1px solid #f9f9f9;
+}
+.stui_header__user .dropdown.login-menu ul li:last-child {
+	border-bottom: none;
+}
+.stui_header__user .dropdown.login-menu ul li a {
+	display: block;
+	padding: 10px 15px;
+	font-size: 14px;
+	color: #333;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.stui_header__user .dropdown.login-menu ul li a:hover {
+	background: #f9f9f9;
+	color: #ff5c7c;
+}
+.stui_header__user .dropdown.login-menu .historyclean {
+	color: #999;
+	font-size: 12px;
+	font-weight: normal;
+}
+</style>
+<script type="text/javascript" src="{$maccms.path_tpl}statics/js/jquery.min.js"></script>
+<script type="text/javascript" src="{$maccms.path_tpl}statics/js/stui_default.js "></script>
+<script type="text/javascript" src="{$maccms.path_tpl}statics/js/jquery.cookie.min.js "></script>
+<script type="text/javascript" src="{$maccms.path_tpl}statics/js/jquery.lazyload.min.js "></script>
+<script type="text/javascript" src="{$maccms.path_tpl}statics/js/home.js"></script>
+<script>var maccms={"path":"__ROOT__","mid":"{$maccms['mid']}","url":"{$maccms['site_url']}","wapurl":"{$maccms['site_wapurl']}","mob_status":"{$maccms['mob_status']}"};</script>
+<!--[if lt IE 9]>
+<script src="https://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->

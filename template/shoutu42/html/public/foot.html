@@ -1,0 +1,53 @@
+		<footer id="footer" class="wrapper app">
+			<p class="sitemap">
+			    {maccms:foreach name="$shoutu.navfoot.data" id="vo" key="key"}
+			    {if $vo.is}
+			    {if $key}<span class="space-line-bold"></span>{/if}
+			    {if condition="$vo.type eq 'web'"} 
+				<a{if $vo.blank} target="_blank"{/if} href="{$vo.val}">{if $vo.icon}<i class="{$vo.icon}"></i>{/if}{$vo.title}</a>
+				{elseif condition="$vo.type eq 'url'"}
+				<a{if $vo.blank} target="_blank"{/if} href="{:mac_url($vo.val)}">{if $vo.icon}<i class="{$vo.icon}"></i>{/if}{$vo.title}</a>
+				{else /}
+				<a{if $vo.blank} target="_blank"{/if} href="{:mac_url_type(['type_mid'=>$vo.type,'type_id'=>$vo.val])}">{if $vo.icon}<i class="icon {$vo.icon}"></i>{/if}{$vo.title}</a>
+				{/if}
+				{/if}
+				{/maccms:foreach}
+			</p>
+			{if $shoutu.basic.foottips_is}<p>{$shoutu.basic.foottips}</p>{/if}
+			{if $shoutu.basic.jscode_is}<p>{$shoutu.basic.jscode}</p>{/if}
+		</footer>
+		
+		
+		
+		<ul class="shoutu-fixedbar">
+		 {maccms:foreach name="$shoutu.navbottom.data" id="vo" key="key"}
+    	{if $vo.is}
+    	{if condition="$vo.type eq 'web'"} 
+    	<li><a{if $vo.blank} target="_blank"{/if} href="{$vo.val}" title="{$vo.title}">{if $vo.icon}<i class="{$vo.icon}"></i>{/if}</a></li>
+    	{elseif condition="$vo.type eq 'url'"}
+    	<li><a{if $vo.blank} target="_blank"{/if} href="{:mac_url($vo.val)}" title="{$vo.title}">{if $vo.icon}<i class="{$vo.icon}"></i>{/if}</a></li>
+    	{else /}
+    	<li><a{if $vo.blank} target="_blank"{/if} href="{:mac_url_type(['type_mid'=>$vo.type,'type_id'=>$vo.val])}" title="{$vo.title}">{if $vo.icon}<i class="{$vo.icon}"></i>{/if}</a></li>
+    	{/if}
+    	{/if}
+    	{/maccms:foreach}   
+    	<li><a href="javascript:;" title="语言切换" id="languageToggle"><i class="icon-language"></i></a>
+    	    <div class="languagemenu_container">
+            <span class="languagemenu_item" data-lang="english">English</span>
+            <span class="languagemenu_item" data-lang="chinese_simplified">简体中文</span>
+            <span class="languagemenu_item" data-lang="chinese_traditional">繁體中文</span>
+            <span class="languagemenu_item" data-lang="spanish">Español</span>
+            <span class="languagemenu_item" data-lang="korean">한국인</span>
+            <span class="languagemenu_item" data-lang="indonesian">Bahasa Indonesia</span>
+            <span class="languagemenu_item" data-lang="japanese">日本語</span>
+            <span class="languagemenu_item" data-lang="deutsch">Deutsch</span>
+            </div> 
+    	</li>
+    	<li>
+    		<a class="backtop" href="javascript:;" style="display: none;"><i class="icon-jiantoushang"></i></a>
+    	</li>
+        </ul>
+		<script src="{$shoutu.basic.static|mac_default=''.$maccms.path_tpl.''}assets/js/translate.js"></script>
+		{:config_footer($shoutu)}
+		<script>const lang=localStorage.getItem("lang")||"chinese_simplified";translate.service.use("client.edge");translate.selectLanguageTag.show=false;translate.setAutoDiscriminateLocalLanguage();translate.language.translateLanguagesRange=["chinese_simplified"];translate.changeLanguage(lang);$("#languageToggle").on("click",function(){$(".languagemenu_container").toggle()});$(".languagemenu_item").on("click",function(){translate.changeLanguage($(this).data("lang"));localStorage.setItem("lang",$(this).data("lang"));$(".languagemenu_container").hide()});</script>
+	    <script>function updateInstallPrompt(){if(window.innerWidth<559){var installPrompt=document.querySelector('#install-prompt .kuangjia');if(installPrompt){installPrompt.innerHTML=`<img style="margin-right: 10px;"src="{$shoutu.basic.favicon}"width="32"height="32">安装到手机<div class="tooltip">?<span class="tooltiptext">将网站安装至桌面应用可以快速打开使用{$maccms.site_name}</span></div><button class="install-btn btn"onclick="addToDesktop()">立刻添加</button><span class="pwa-close-btn"onclick="closePrompt()">下次再说</span>`}}}document.addEventListener('DOMContentLoaded',function(){updateInstallPrompt();window.addEventListener('resize',updateInstallPrompt)});</script><script>var dfdPrompt=null;var installPromptDiv=document.getElementById('install-prompt');function shouldShowInstallPrompt(){const oneDay=168*60*60*1000;const lastClosed=localStorage.getItem('installPromptClosed');if(lastClosed){const now=Date.now();return now-lastClosed>oneDay}return true}function showInstallPrompt(){if(dfdPrompt&&shouldShowInstallPrompt()){installPromptDiv.style.display='block'}}function closePrompt(){installPromptDiv.style.display='none';localStorage.setItem('installPromptClosed',Date.now())}window.addEventListener('beforeinstallprompt',function(e){dfdPrompt=e;e.preventDefault();showInstallPrompt()});function addToDesktop(){if(dfdPrompt){dfdPrompt.prompt();dfdPrompt.userChoice.then(function(choiceResult){console.log(choiceResult.outcome);closePrompt();dfdPrompt=null})}else{console.log('添加到主屏幕的功能不可用。')}}window.onload=showInstallPrompt;</script>

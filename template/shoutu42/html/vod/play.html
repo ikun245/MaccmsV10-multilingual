@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+    {include file="public/include"}
+	</head>
+	<body class="page play">
+	{include file="public/head"}
+	<main id="main" class="wrapper">
+	<div class="player-block">
+		<div class="content">
+		    {include file="vod/playbox"}
+            {include file="vod/playinfo"}
+            {include file="vod/playside"}
+		</div>
+	</div>
+	<div class="content">
+		{maccms:foreach name="$shoutu.play.data" id="for" key="key"}
+        {include file="public/vod_for"}
+         {/maccms:foreach}
+	</div>
+</main>
+        {include file="public/foot"}
+        <span style="display:none" class="mac_history_set" alt="设置History历史记录" data-link="{:mac_url_vod_play($obj,['sid'=>$param['sid'],'nid'=>$param['nid']])}" data-part="{$obj['vod_play_list'][$param['sid']]['urls'][$param['nid']]['name']}" data-name="{$obj.vod_name}"></span>    
+	</body>
+
+</html>

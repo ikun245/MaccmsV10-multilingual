@@ -1,0 +1,10 @@
+        <a href="{:mac_url_vod_detail($vo)}"
+        	class="text-list-item">
+        	<div class="text-list-num {if condition=" $key lt 4"}top-main top-{$key}{/if}">{$key}</div>
+        	<div class="text-list-title">
+        		<h3>{$vo.vod_name}</h3>
+        		{if $shoutu.poster.text_is}
+        		<p>{$vo[''.$shoutu.poster.text.'']|mac_default='内详'}</p>
+        		{/if}
+        	</div>
+        </a>

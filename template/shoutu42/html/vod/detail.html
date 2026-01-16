@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+    {include file="public/include"}
+	</head>
+
+	<body  class="view page">
+        {include file="public/head"}
+		<main id="main" class="wrapper">
+			<div class="content">
+				 {include file="vod/desc"}
+                 {include file="vod/playlist"}
+                 {if $shoutu.detailserie.serie_is == 1}
+				 {include file="vod/serie"}
+				 {/if}
+				{include file="vod/downlist"}
+    			{maccms:foreach name="$shoutu.play.data" id="for" key="key"}
+                {include file="public/vod_for"}
+                {/maccms:foreach}
+			</div>
+		</main>
+           {include file="public/foot"}
+           
+	</body>
+
+</html>

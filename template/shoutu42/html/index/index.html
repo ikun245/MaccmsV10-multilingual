@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+    {include file="public/include"}
+	</head>
+
+		<body  class="{if $shoutu.slide.side_is}page{else}homepage{/if}">
+        {include file="public/head"}
+        {if $shoutu.slide.side_is == 1}
+        {include file="index/slide"}
+        {/if}
+		<main id="index-main" class="wrapper">
+			<div class="content">
+			  {maccms:foreach name="$shoutu.index.data" id="for" key="key2"}
+			  {include file="public/vod_for"}
+			  {/maccms:foreach}
+			  {include file="index/pwa"}
+			</div>
+		</main>
+		    {include file="index/link"}  
+            {include file="public/foot"}
+            {if $shoutu.set.notice_is}
+            {include file="public/notice"}
+             {/if}
+	</body>
+
+	
+</html>

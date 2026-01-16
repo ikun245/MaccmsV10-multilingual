@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+	 {php}$label_name='all';{/php}   
+    {include file="public/include"}
+	</head>
+<body class="ui-">
+    {include file="public/head"}
+    <div class="site-content pt-0">
+			<div>
+				<section class="content-header">
+					<div class="container">
+						<div class="title-with-avatar center">
+							<div class="title-box">
+								<h6 class="sub-title mb-1">筛选</h6>
+								<h1 class="h3-md mb-1">全部</h1>
+								<span class="inactive-color fs-2 mb-0">{:mac_data_count(0,'all','vod')} 部影片</span>
+							</div>
+						</div>
+						<nav class="sort-nav">
+							<ul>
+							<li class="active"><a href="{:mac_url('label/all')}">最近更新</a></li>
+							<li><a href="{:mac_url('label/hot')}">最多观看</a></li>
+							<li><a href="{:mac_url('label/up')}">最佳口碑</a></li>
+							</ul>
+						</nav>
+						</div>	
+				</section>
+				<div class="container">
+					<section class="pb-3 pb-e-lg-40">
+						<div class="row gutter-20">
+							{maccms:vod num="24" paging="yes" pageurl="label/all" type="all" order="desc" by="time" half="1"}
+                            {include file="block/vod_box2"}
+                            {/maccms:vod}
+						</div>
+						{include file="public/paging"}
+					</section>
+				</div>
+			</div>
+		</div>
+{include file="public/foot"}
+</body>
+</html>
+

@@ -1,0 +1,221 @@
+	{if $maccms.aid == 1 && $shoutu.slide.side_is == 0}
+		<header id="header" class="wrapper">
+			<div class="header-content">
+				<div class="dianying-im">
+					<div class="header-logo">
+						<h1 class="slogan"><a  href="{$maccms.path}">{$shoutu.basic.site_name}</a></h1>
+						<div class="fixed-logo"><a href="{$maccms.path}" class="logo" title="{$maccms.site_name}">
+						    <img src="{$shoutu.basic.logo}" alt="{$maccms.site_name}" /></a></div>
+					</div>
+				</div>
+				<div class="nav-search">
+				    <form method="get" name="search" action="{:mac_url('vod/search')}"></form>
+				</div>
+				<div class="nav swiper">
+					<ul class="nav-menu-items swiper-wrapper">
+						{maccms:foreach name="$shoutu.nav.data" id="vo" key="key"}	
+		                {if $vo.is}
+		                {if condition="$vo.type eq 'web'"} 
+						<li class="nav-menu-item swiper-slide"><a {if $vo.blank} target="_blank"{/if} href="{$vo.val}" title="{$vo.title}">{if $vo.icon}<i class="{$vo.icon}"></i>{/if}<span>{$vo.title}</span></a>
+						</li>
+						{elseif condition="$vo.type eq 'url'"}
+						<li class="nav-menu-item swiper-slide"><a {if $vo.blank} target="_blank"{/if} href="{:mac_url($vo.val)}" title="{$vo.title}">{if $vo.icon}<i class="{$vo.icon}"></i>{/if}<span>{$vo.title}</span></a>
+						</li>
+						 {else /}
+						 <li class="nav-menu-item swiper-slide {if condition="($vo.val eq $GLOBALS['type_id'] || $vo.val eq $GLOBALS['type_pid'])"}selected{/if}"><a {if $vo.blank} target="_blank"{/if} href="{:mac_url_type(['type_mid'=>$vo.type,'type_id'=>$vo.val])}" title="{$vo.title}">{if $vo.icon}<i class="{$vo.icon}"></i>{/if}<span>{$vo.title}</span></a>
+						</li>
+						{/if}
+                        {/if}
+                       {/maccms:foreach}
+					</ul>
+				</div>
+				<div class="header-module">
+					<ul class="nav-menu-items">
+						<li class="nav-menu-item drop"><span class="nav-menu-icon"><i class="icon-all"></i></span>
+							<div class="drop-content sub-block">
+								<div class="drop-content-box grid-box">
+									<ul class="drop-content-items grid-items">
+									    {maccms:foreach name="$shoutu.nav_b.data" id="vo" key="key"}
+									    {if $vo.is}
+		                                {if condition="$vo.type eq 'web'"} 
+										<li class="grid-item">
+										    <a {if $vo.blank} target="_blank"{/if} href="{$vo.val}" title="{$vo.title}">{if $vo.icon}<i class="{$vo.icon}"></i>{/if}
+												<div class="grid-item-name">{$vo.title}</div>
+											</a>
+									    </li>
+									    {elseif condition="$vo.type eq 'url'"}
+									    <li class="grid-item">
+										    <a {if $vo.blank} target="_blank"{/if} href="{:mac_url($vo.val)}" title="{$vo.title}">{if $vo.icon}<i class="{$vo.icon}"></i>{/if}
+												<div class="grid-item-name">{$vo.title}</div>
+											</a>
+									    </li>
+									    {else /}
+									    <li class="grid-item">
+										    <a {if $vo.blank} target="_blank"{/if} href="{:mac_url_type(['type_mid'=>$vo.type,'type_id'=>$vo.val])}" title="{$vo.title}">{if $vo.icon}<i class="{$vo.icon}"></i>{/if}
+												<div class="grid-item-name">{$vo.title}</div>
+											</a>
+									    </li>
+									    {/if}
+                                        {/if}
+                                       {/maccms:foreach}
+									</ul>
+								</div>
+							</div>
+							<div class="shortcuts-m-overlay"></div>
+						</li>
+						<li class="nav-menu-item nav-menu-search"><i class="icon-search"></i></li>
+						<li class="space-line-bold"></li>
+						<li class="nav-menu-item drop"><span class="nav-menu-icon"><i
+									class="icon-watch-history"></i></span>
+							<div class="drop-content drop-history">
+								<div class="drop-content-box">
+									<ul class="drop-content-items" id="history">
+										<li class="list-item list-item-title"><a href class="playlist historyclean">
+										    <i class="icon-clear"></i></a><strong>我的观影记录</strong></li>
+									</ul>
+								</div>
+							</div>
+							<div class="shortcuts-m-overlay"></div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div id="search-content">
+				<div class="index-logo">
+				    <span class="logo-s">
+				    <img src="{$shoutu.basic.logo}" title="{$maccms.site_name}" />
+				    </span>
+				</div>
+				<form method="get" name="search" action="{:mac_url('vod/search')}">
+				<div class="search-main">
+					<div class="search-box">
+					    <input class="search-input ac_wd" id="txtKeywords" type="text" name="wd" autocomplete="off"  value="{$param.wd}" placeholder="{if $shoutu.set.seatext}{$shoutu.set.seatext}{else}请输入要搜索的关键词{/if}">
+					  {if $shoutu.set.seahot_is}  
+						<div class="search-drop">
+							<div class="drop-content-items ac_hot none">
+								<div class="list-item list-item-title">
+								    <strong>大家都在搜这些影片</strong>
+								</div>
+								<div class="search-tag">
+								    {maccms:foreach name=":explode(',',''.$shoutu['set']['seahot'].'')" id="vo" key="key"}
+								    <a href="{:mac_url('vod/search',['wd'=>$vo])}" title="{$vo}" {if condition=" $key lt 3"}class="hot"{/if}>{if $key >= 0 and $key <= 2}<i class="icon-hot"></i>{elseif $key >= 3 and $key <= 4}<i class="icon-hot-o"></i>{/if}{$vo}</a>
+									{/maccms:foreach}	
+								</div>
+							</div>
+						</div>
+					    {/if}	
+						    <button class="search-btn search-go" type="submit"><i class="icon-search"></i></button>
+						    <button class="cancel-btn" type="button">取消</button>
+					</div>
+				</div>
+			</form>
+			</div>
+		</header>
+    {else /}
+    <header id="header" class="wrapper">
+			<div class="header-content">
+				<div class="content">
+					<div class="brand">
+					    <a href="{$maccms.path}" class="logo" title="{$maccms.site_name}">
+					       <img src="{$shoutu.basic.logo}" alt="{$maccms.site_name}" />
+					   </a>
+					  </div>
+					<div class="nav-search">
+					     {if condition="$maccms.aid neq 13"}
+							<form method="post" name="search" action="{:mac_url('vod/search')}"  onSubmit="return qrsearch();">
+							<div class="search-box">
+        				    <input class="search-input ac_wd" id="txtKeywords" type="text" name="wd" autocomplete="off"  value="{$param.wd}" placeholder="{if $shoutu.set.seatext}{$shoutu.set.seatext}{else}请输入要搜索的关键词{/if}">
+        				  {if $shoutu.set.seahot_is}  
+        					<div class="search-drop">
+        						<div class="drop-content-items ac_hot none">
+        							<div class="list-item list-item-title">
+        							    <strong>大家都在搜这些影片</strong>
+        							</div>
+        							<div class="search-tag">
+        							    {maccms:foreach name=":explode(',',''.$shoutu['set']['seahot'].'')" id="vo" key="key"}
+        							    <a href="{:mac_url('vod/search',['wd'=>$vo])}" title="{$vo}" {if condition=" $key lt 3"}class="hot"{/if}>{if $key >= 0 and $key <= 2}<i class="icon-hot"></i>{elseif $key >= 3 and $key <= 4}<i class="icon-hot-o"></i>{/if}{$vo}</a>
+        								{/maccms:foreach}	
+        							</div>
+        						</div>
+        					</div>
+        				    {/if}	
+        					    <button class="search-btn search-go" type="submit"><i class="icon-search"></i></button>
+        					    <button class="cancel-btn" type="button">取消</button>
+        				</div>   
+						</form>
+					 {/if}	
+					</div>
+					<div class="nav swiper">
+						<ul class="nav-menu-items swiper-wrapper">
+						{maccms:foreach name="$shoutu.nav.data" id="vo" key="key"}	
+		                {if $vo.is}
+		                {if condition="$vo.type eq 'web'"} 
+						<li class="nav-menu-item swiper-slide"><a {if $vo.blank} target="_blank"{/if} href="{$vo.val}" title="{$vo.title}">{if $vo.icon}<i class="{$vo.icon}"></i>{/if}<span class="nav-menu-item-name">{$vo.title}</span></a>
+						</li>
+						{elseif condition="$vo.type eq 'url'"}
+						<li class="nav-menu-item swiper-slide"><a {if $vo.blank} target="_blank"{/if} href="{:mac_url($vo.val)}" title="{$vo.title}">{if $vo.icon}<i class="{$vo.icon}"></i>{/if}<span class="nav-menu-item-name">{$vo.title}</span></a>
+						</li>
+						 {else /}
+						 <li class="nav-menu-item swiper-slide {if condition="($vo.val eq $GLOBALS['type_id'] || $vo.val eq $GLOBALS['type_pid'])"}selected{/if}"><a {if $vo.blank} target="_blank"{/if} href="{:mac_url_type(['type_mid'=>$vo.type,'type_id'=>$vo.val])}" title="{$vo.title}">{if $vo.icon}<i class="{$vo.icon}"></i>{/if}<span class="nav-menu-item-name">{$vo.title}</span></a>
+						</li>
+						{/if}
+                        {/if}
+                       {/maccms:foreach}
+						</ul>
+					</div>
+					<div class="header-module">
+						<ul class="nav-menu-items">
+							<li class="nav-menu-item drop"><span class="nav-menu-icon"><i class="icon-all"></i></span>
+								<div class="drop-content sub-block">
+									<div class="drop-content-box grid-box">
+										<ul class="drop-content-items grid-items">
+										 {maccms:foreach name="$shoutu.nav_b.data" id="vo" key="key"}
+									    {if $vo.is}
+		                                {if condition="$vo.type eq 'web'"} 
+										<li class="grid-item">
+										    <a {if $vo.blank} target="_blank"{/if} href="{$vo.val}" title="{$vo.title}">{if $vo.icon}<i class="{$vo.icon}"></i>{/if}
+												<div class="grid-item-name">{$vo.title}</div>
+											</a>
+									    </li>
+									    {elseif condition="$vo.type eq 'url'"}
+									    <li class="grid-item">
+										    <a {if $vo.blank} target="_blank"{/if} href="{:mac_url($vo.val)}" title="{$vo.title}">{if $vo.icon}<i class="{$vo.icon}"></i>{/if}
+												<div class="grid-item-name">{$vo.title}</div>
+											</a>
+									    </li>
+									    {else /}
+									    <li class="grid-item">
+										    <a {if $vo.blank} target="_blank"{/if} href="{:mac_url_type(['type_mid'=>$vo.type,'type_id'=>$vo.val])}" title="{$vo.title}">{if $vo.icon}<i class="{$vo.icon}"></i>{/if}
+												<div class="grid-item-name">{$vo.title}</div>
+											</a>
+									    </li>
+									    {/if}
+                                        {/if}
+                                       {/maccms:foreach}
+										</ul>
+									</div>
+								</div>
+								<div class="shortcuts-m-overlay"></div>
+							</li>
+							<li class="nav-menu-item nav-menu-search"><i class="icon-search"></i></li>
+							<li class="space-line-bold"></li>
+							<li class="nav-menu-item drop"><span class="nav-menu-icon"><i
+										class="icon-watch-history"></i></span>
+								<div class="drop-content drop-history">
+									<div class="drop-content-box">
+										<ul class="drop-content-items" id="history">
+											<li class="list-item list-item-title">
+											    <a href class="playlist historyclean">
+											      <i class="icon-clear"></i></a><strong>我的观影记录</strong>
+											 </li>
+										</ul>
+									</div>
+								</div>
+								<div class="shortcuts-m-overlay"></div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</header>
+    {/if}

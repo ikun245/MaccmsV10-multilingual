@@ -1,0 +1,11 @@
+{if condition="$for.is && $for.block eq 'vod_ad'"} 
+{maccms:foreach name="$shoutu['ad']['data']" key="key" id="vo"}
+{if condition="$for.type eq $key"}
+<div class="module">
+		   <a class="shoutu-ad-img" href="{$vo.url}"{if $vo.blank} target="_blank"{/if}>
+				<img src="{$vo.img}" alt="{$vo.title}">
+			</a> 
+</div>
+{/if}
+{/maccms:foreach}
+{/if}

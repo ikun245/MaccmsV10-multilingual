@@ -1,0 +1,80 @@
+<div class="player-info">
+				<div class="video-info">
+					<div class="video-info-box">
+						<div class="video-info-header">
+							<h1 class="page-title"><a href="{:mac_url_vod_detail($obj)}" title="{$obj.vod_name}">{$obj.vod_name}</a></h1><span
+								class="btn-pc page-title">{$obj['vod_play_list'][$param['sid']]['urls'][$param['nid']]['name']}</span>
+							<div class="video-info-aux">
+							   <a href="{if$obj.type_1!=''}{:mac_url_type($obj.type_1)}{else}{:mac_url_type($obj.type)}{/if}" title="{if$obj.type_1!=''}{$obj.type_1.type_name}{else}{$obj.type.type_name}{/if}" class="tag-link">
+									<div class="video-tag-icon">
+        					        	<i class="icon-jiangzhang"></i>
+                                     </div>{if$obj.type_1!=''}{$obj.type_1.type_name}{else}{$obj.type.type_name}{/if}
+								</a>
+								<div class="tag-link">
+								{$obj.vod_year|mac_url_create='year','vod','search'}
+								</div>
+								<div class="tag-link">
+								{$obj.vod_class|mac_substring=2|mac_url_create='class','vod','search','<span class="slash">/</span>'}
+								</div>
+								<div class="tag-link">
+								{$obj.vod_area|mac_url_create='area','vod','search'}
+								</div>
+							</div>
+						</div>
+						<div class="video-info-main">
+							<div class="video-info-items"><span class="video-info-itemtitle">剧情：</span>
+								<div class="video-info-item video-info-content">
+								{$obj.vod_content|mac_filter_html|mac_default='暂无剧情'}
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="video-player-handle">
+					 {if condition="$obj.player_info.link_next"}
+                     <a href="{if condition="$param.nid eq $obj['vod_play_list'][$param['sid']]['url_count']"}javascript:void(0); {else/}{$obj.player_info.link_next} {/if}" class="btn-block-o handle-btn" title="播放《{$obj.vod_name}》下一集"><i class="icon-next"></i><p class="block-name">下一集</p></a>
+                     {/if}
+						
+						<div class="drop pc"><span class="btn-block-o handle-btn handle-more" title="拿起手机扫一扫">
+						    <i class="icon-qrcode"></i>
+							<p class="block-name">手机看</p>
+							</span>
+							
+        				<div class="drop-content handle-more-drop">
+                        <div class="drop-content-box">
+                          <div class="drop-content-items"><a class="btn-qrcode">
+                            <div class="qrcode-img"></div>
+                            <div class="block-name">
+                              <p>使用 手机浏览器 扫码观看</p>
+                              <strong>{$obj.vod_name} - {$obj['vod_play_list'][$param['sid']]['urls'][$param['nid']]['name']}</strong></div>
+                            </a></div>
+                        </div>
+                      </div>
+							<div class="shortcuts-m-overlay"></div>
+						</div>
+						{if condition="$obj.vod_down_from"}
+						<a href="{:mac_url_vod_detail($obj)}/#download-list" class="btn-block-o handle-btn handle-down"
+							title="《{$obj.vod_name}》可免费下载"><i class="icon-download-bold"></i><em class="extra-tips">免费</em>
+							<p class="block-name">可下载</p>
+						</a>
+						{/if}
+						<div class="video-player-handle-more">
+							<div class="btn-block-o handle-btn handle-share share-btn" title="分享《{$obj.vod_name}》给朋友一起看"
+								data-clipboard-text="{$maccms.http_type}{$maccms.site_url}{:mac_url_vod_play($obj)} 我正在{$maccms.site_name}观看《{$obj.vod_name}》，推荐给你一起看！">
+								<i class="icon-share"></i>
+								<p class="block-name">分享</p>
+							</div>
+							<div class="drop"><span class="btn-block-o handle-btn" onclick="ShouTu.Mac.Gbook.Report('{$obj['vod_play_list'][$param['sid']]['player_info']['show']}线路-《{$obj.vod_name}》' + location.href,'{$param['sid']}')"><i class="icon-warn"></i>
+									<p class="block-name">报错</p>
+								</span>
+								<div class="shortcuts-mo-overlay"></div>
+							</div>
+						</div>
+					</div>
+					<div class="module-share-prompt share-btn"
+						data-clipboard-text="{$maccms.http_type}{$maccms.site_url}{:mac_url_vod_play($obj)} 我正在{$maccms.site_name}观看《{$obj.vod_name}》，推荐给你一起看！">
+						<div class="module-share-prompt-h">发给好友一起看：</div>
+						<div class="module-share-prompt-url">{$maccms.http_type}{$maccms.site_url}{:mac_url_vod_play($obj)} </div>
+						<div class="module-share-prompt-f">复制地址</div>
+					</div>
+				</div>
+			</div>

@@ -1,0 +1,39 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">用户登录</h4>
+        </div>
+        <div class="modal-body">
+            <form class="mac_login_form">
+                <div class="form-group">
+                    <label for="user_name">账号</label>
+                    <input type="text" class="form-control" name="user_name" placeholder="请输入账号">
+                </div>
+                <div class="form-group">
+                    <label for="user_pwd">密码</label>
+                    <input type="password" class="form-control" name="user_pwd" placeholder="请输入密码">
+                </div>
+                {if condition="$GLOBALS['config']['user']['login_verify'] eq 1"}
+                <div class="form-group">
+                    <label for="verify">验证码</label>
+                    <div class="row">
+                        <div class="col-xs-7">
+                            <input type="text" class="form-control" name="verify" placeholder="验证码">
+                        </div>
+                        <div class="col-xs-5">
+                            <img class="mac_verify_img" src="{:mac_url('verify/index')}" onClick="this.src=this.src+'?'" alt="单击刷新" style="cursor:pointer;width:100%;height:34px;" />
+                        </div>
+                    </div>
+                </div>
+                {/if}
+                <button type="button" id="login_form_submit" class="btn btn-primary btn-block">登录</button>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <div class="text-center">
+                还没有账号？<a href="{:mac_url('user/reg')}">立即注册</a>
+            </div>
+        </div>
+    </div>
+</div>

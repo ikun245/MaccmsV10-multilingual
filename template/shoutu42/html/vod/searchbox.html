@@ -1,0 +1,31 @@
+<div id="search-content">
+    <form method="get" name="search" action="{:mac_url('vod/search')}">
+				<div class="search-main">
+					<div class="search-box">
+					    <input class="search-input ac_wd" id="txtKeywords" type="text" name="wd" autocomplete="off"  value="{$param.wd}" placeholder="{if $shoutu.set.seatext}{$shoutu.set.seatext}{else}请输入要搜索的关键词{/if}">
+					  {if $shoutu.set.seahot_is}  
+						<div class="search-drop">
+							<div class="drop-content-items ac_hot none">
+								<div class="list-item list-item-title">
+								    <strong>大家都在搜这些影片</strong>
+								</div>
+								<div class="search-tag">
+								    {maccms:foreach name=":explode(',',''.$shoutu['set']['seahot'].'')" id="vo" key="key"}
+								    <a href="{:mac_url('vod/search',['wd'=>$vo])}" title="{$vo}" {if condition=" $key lt 3"}class="hot"{/if}>{if $key >= 0 and $key <= 2}<i class="icon-hot"></i>{elseif $key >= 3 and $key <= 4}<i class="icon-hot-o"></i>{/if}{$vo}</a>
+									{/maccms:foreach}	
+								</div>
+							</div>
+						</div>
+					    {/if}	
+						<a href="{:mac_url('label/hot')}" class="search-soupian"  title="排行榜" target="_blank">
+						    <span class="soupian-btn"><i class="icon-hot"></i></span>
+						 </a>
+						    <button class="search-btn search-go" type="submit"><i class="icon-search"></i></button>
+						    <button class="cancel-btn" type="button">取消</button>
+					</div>
+				</div>
+			</form>
+      <div class="search-stat">
+        <h2>搜索"{$param.wd}{$param.actor}{$param.director}{$param.area}{$param.lang}{$param.year}{$param.class}" ，找到 <strong class="mac_total"></strong>部影视作品</h2>
+      </div>
+    </div>

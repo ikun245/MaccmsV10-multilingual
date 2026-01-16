@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>会员中心 - {$maccms.site_name}</title>
+    {include file="block/include"}
+    <style>
+        .user-center { padding: 30px 0; background: #f5f5f5; min-height: 600px; }
+        .user-box { background: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); overflow: hidden; display: flex; }
+        .user-sidebar { width: 200px; background: #fff; border-right: 1px solid #eee; padding: 20px 0; }
+        .user-sidebar a { display: block; padding: 12px 25px; color: #333; font-size: 15px; transition: all 0.3s; }
+        .user-sidebar a:hover { background: #f9f9f9; color: #ff5c7c; }
+        .user-sidebar a.active { background: #fff5f7; color: #ff5c7c; border-right: 3px solid #ff5c7c; font-weight: bold; }
+        .user-sidebar a i { margin-right: 10px; width: 18px; text-align: center; }
+        
+        .user-main { flex: 1; padding: 30px; position: relative; z-index: 1; }
+        .user-head { display: flex; align-items: center; padding-bottom: 30px; border-bottom: 1px solid #eee; margin-bottom: 30px; }
+        .user-head img { width: 80px; height: 80px; border-radius: 50%; margin-right: 20px; border: 3px solid #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .user-head .info h3 { margin: 0 0 5px 0; font-size: 22px; color: #333; }
+        .user-head .info p { margin: 0; color: #999; font-size: 14px; }
+        .user-head .info span { display: inline-block; padding: 2px 8px; background: #ff5c7c; color: #fff; border-radius: 3px; font-size: 12px; margin-top: 5px; }
+
+        .user-section { margin-bottom: 30px; }
+        .user-section h4 { font-size: 18px; margin-bottom: 20px; padding-left: 10px; border-left: 4px solid #ff5c7c; }
+        
+        .user-info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .user-info-item { background: #f9f9f9; padding: 15px; border-radius: 6px; }
+        .user-info-item label { display: block; color: #999; font-size: 13px; margin-bottom: 5px; }
+        .user-info-item span { font-size: 16px; color: #333; }
+
+        .history-list { list-style: none; padding: 0; }
+        .history-list li { padding: 15px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; position: relative; }
+        .history-list li:last-child { border-bottom: none; }
+        .history-list li a { color: #333; font-size: 15px; display: block; flex: 1; position: relative; z-index: 2; cursor: pointer; }
+        .history-list li a:hover { color: #ff5c7c; }
+        .history-list li .time { color: #999; font-size: 13px; margin-left: 10px; }
+        .history-list li .del { color: #ccc; cursor: pointer; }
+        .history-list li .del:hover { color: #ff5c7c; }
+    </style>
+</head>
+<body>
+    {include file="block/head"}
+    <div class="user-center">
+        <div class="container">
+            <div class="user-box">
+                <div class="user-sidebar">
+                    <a href="{:mac_url('user/index')}" class="active"><i class="iconfont icon-home"></i>个人中心</a>
+                    <a href="javascript:;" onclick="showSection('history')"><i class="iconfont icon-time"></i>观看历史</a>
+                    <a href="{:mac_url('user/logout')}"><i class="iconfont icon-exit"></i>退出登录</a>
+                </div>
+                <div class="user-main">
+                    <div id="section-index">
+                        <div class="user-head">
+                            <img src="{$obj.user_portrait|mac_default='static/images/touxiang.png'|mac_url_img}" alt="头像">
+                            <div class="info">
+                                <h3>{$obj.user_name}</h3>
+                                <p>欢迎回来，开启您的精彩影音之旅</p>
+                                <span>{$obj.group.group_name}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="user-section">
+                            <h4>基本信息</h4>
+                            <div class="user-info-grid">
+                                <div class="user-info-item">
+                                    <label>用户名</label>
+                                    <span>{$obj.user_name}</span>
+                                </div>
+                                <div class="user-info-item">
+                                    <label>积分余额</label>
+                                    <span>{$obj.user_points} 积分</span>
+                                </div>
+                                <div class="user-info-item">
+                                    <label>注册时间</label>
+                                    <span>{$obj.user_reg_time|mac_day}</span>
+                                </div>
+                                <div class="user-info-item">
+                                    <label>最后登录</label>
+                                    <span>{$obj.user_login_time|mac_day} ({$obj.user_login_ip|long2ip})</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="section-history" style="display: none;">
+                        <div class="user-section">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                <h4 style="margin-bottom: 0;">观看历史</h4>
+                                <a href="javascript:;" class="historyclean" style="color: #999; font-size: 14px;">清空历史</a>
+                            </div>
+                            <ul class="history-list" id="user_history_list">
+                                <!-- 历史记录将通过 JS 加载 -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {include file="block/foot"}
+    <script>
+        function showSection(name) {
+            $('.user-main > div').hide();
+            $('#section-' + name).show();
+            $('.user-sidebar a').removeClass('active');
+            $('.user-sidebar a').each(function(){
+                if($(this).attr('onclick') && $(this).attr('onclick').indexOf(name) !== -1) {
+                    $(this).addClass('active');
+                }
+            });
+            if(name === 'index') {
+                $('.user-sidebar a[href*="index"]').addClass('active');
+            }
+        }
+
+        $(function(){
+            if($.cookie("recente")){
+                var json=eval("("+$.cookie("recente")+")");
+                var list="";
+                for(i=0;i<json.length;i++){
+                    list += '<li>' +
+                            '<a href="'+json[i].vod_url+'" target="_self"><strong>'+json[i].vod_name+'</strong> <small style="color:#999; margin-left:10px;">'+json[i].vod_part+'</small></a>' +
+                            '<span class="time">正在观看</span>' +
+                            '</li>';
+                }
+                $("#user_history_list").html(list);
+            } else {
+                $("#user_history_list").html('<p style="padding: 50px 0; text-align: center; color: #999;">暂无观看历史</p>');
+            }
+
+            $(".historyclean").on("click",function(){
+                if(confirm('确定要清空观看历史吗？')) {
+                    $.cookie("recente",null,{expires:-1,path: '/'});
+                    $("#user_history_list").html('<p style="padding: 50px 0; text-align: center; color: #999;">暂无观看历史</p>');
+                    $("#stui_history").html('<p style="padding: 80px 0; text-align: center">您还没有看过影片哦</p>');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

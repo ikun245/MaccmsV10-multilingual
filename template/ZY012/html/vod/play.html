@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+<!--
+.STYLE1 {
+	color: #FFCC00;
+	font-weight: bold;
+}
+-->
+  <!--
+.STYLE2 {
+	color: #FF307E;
+	font-weight: bold;
+}
+-->
+</style>
+    {include file="seo/vod_play"}   
+	{include file="block/include"}
+	<script type="text/javascript" src="{$maccms.path_tpl}statics/js/history.js"></script>
+	<script type="text/javascript">var vod_name='{$obj.vod_name|mac_substring=10}',vod_url=window.location.href,vod_part='{$obj['vod_play_list'][$param['sid']]['urls'][$param['nid']]['name']}';</script>
+</head>
+<body>
+	{include file="block/head"}
+    <div class="container">
+        <div class="row">
+        	<div class="stui-pannel">
+        		<div class="stui-pannel__bd">
+        			<div class="stui-player-wrap clearfix">
+        				<div class="stui-player__video-side">
+	        				<div class="embed-responsive embed-responsive-16by9 clearfix">
+								{$player_data}{$player_js}							
+							</div>
+	        			</div>
+			            <div class="stui-player__ad-side">
+                            {php}$player_ads = get_multi_ad('player');{/php}
+                            {if condition="$player_ads"}
+                                {foreach name="player_ads" item="vo"}
+                                <div style="flex: 1; padding-left: 10px; padding-bottom: 5px;">
+                                    <a href="{$vo.link}" target="_blank">
+                                        <img src="{$vo.img}" style="width: 100%; height: 100%; min-height: 100px; object-fit: cover; border-radius: 4px;">
+                                    </a>
+                                </div>
+                                {/foreach}
+                            {else /}
+                                <div style="flex: 1; padding-left: 10px; padding-bottom: 5px;">
+                                    <a href="#"><img src="{$maccms.path_tpl}statics/img/ad1.jpg" style="width: 100%; height: 100%; min-height: 100px; object-fit: cover; border-radius: 4px;" alt="广告1"></a>
+                                </div>
+                                <div style="flex: 1; padding-left: 10px; padding-top: 5px;">
+                                    <a href="#"><img src="{$maccms.path_tpl}statics/img/ad2.jpg" style="width: 100%; height: 100%; min-height: 100px; object-fit: cover; border-radius: 4px;" alt="广告2"></a>
+                                </div>
+                            {/if}
+			            </div>
+        			</div>       			
+				</div>
+		    </div>
+
+			<div class="stui-pannel clearfix">
+				<div class="stui-pannel__bd">
+					<div class="stui-player__detail">
+						<div class="more">
+							<a href="{$obj.player_info.link_pre}"><i class="iconfont icon-back"></i> 上一集</a>
+							<a href="{$obj.player_info.link_next}">下一集 <i class="iconfont icon-more"></i></a>
+						</div>
+						<h1 class="title">{$obj.vod_name}</h1>
+						<div class="data">
+							{$obj.vod_score}分 / {$obj.vod_year|mac_default='内详'} / {$obj.vod_area|mac_default='内详'} / {$obj.vod_class} / {$obj.vod_hits}次播放&nbsp;&nbsp;<a href="javascript:;" class="open-desc">详情 </a>
+						</div>	
+						<div class="data-more" style="display: none;">
+							<p><span>主演：</span>{$obj.vod_actor|mac_substring=60|mac_url_create='actor'}</p>
+							<p><span>导演：</span>{$obj.vod_director|mac_url_create='director'}</p>
+							<p>
+								<span>类型：</span>{$obj.vod_class}&nbsp;&nbsp;
+								<span>地区：</span>{$obj.vod_area}&nbsp;&nbsp;
+								<span>年份：</span>{$obj.vod_year}&nbsp;&nbsp;
+							</p>
+							<p>简介：{$obj.vod_content|mac_filter_html}</p>
+						</div>
+					</div>
+
+					<div class="stui-pannel_hd">
+						<ul class="tab clearfix">
+							<li class="active"><a href="javascript:;">播放选集</a></li>
+							{notempty name="obj.vod_down_list"}
+							<li><a href="javascript:;">下载地址</a></li>
+							{/notempty}
+						</ul>
+					</div>
+					<div class="play-content" style="margin-top: 10px;">
+						{maccms:foreach name="obj.vod_play_list" id="vo" key="key"}
+						<div class="play-item cont{if condition="$key eq 1"} active{/if}">				            																				
+							<ul class="stui-play__list clearfix">
+								{maccms:foreach name="vo.urls" id="vo2"}
+								<li {if condition="$param.sid eq $vo.sid && $param.nid eq $vo2.nid"}class="active"{/if}><a href="{:mac_url_vod_play($obj,['sid'=>$vo.sid,'nid'=>$vo2.nid])}">{$vo2.name}</a></li>
+								 {/maccms:foreach}	
+							</ul>
+						</div>								
+						{/maccms:foreach}
+					</div>
+				</div>
+			</div>
+
+			<div class="stui-pannel clearfix">
+				<div class="stui-pannel__hd">
+					<h3 class="title">相关推荐</h3>
+				</div>
+				<div class="stui-pannel__bd">
+					<ul class="stui-vodlist clearfix">
+						{maccms:vod num="25" type="current" order="desc" by="time"}
+						<li class="related-item {if condition="$key gt 10"}hide{/if}">
+							{include file="block/vod_box"}											
+						</li>			
+						{/maccms:vod}
+					</ul>
+					<div class="text-center" style="padding: 20px 0;">
+						<a href="javascript:;" id="btn-view-more" class="btn btn-default" style="background: #f5f5f5; padding: 10px 30px; border-radius: 20px;">查看更多</a>
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+    <div class="play-bg"></div>
+	<script>
+		$("#btn-view-more").click(function(){
+			$(".related-item.hide").removeClass("hide");
+			$(this).parent().hide();
+		});
+		$(".open-desc").click(function(){
+			$(".data-more").slideToggle();
+		});
+	</script>
+        </div>
+    </div>
+    <div class="play-bg"></div>
+    <script type="text/javascript">$(".MacPlayer").addClass("embed-responsive").css({"padding-bottom":"56.25%","z-index":"99"}); </script>
+    <span class="mac_ulog_set hide" data-type="4" data-mid="{$maccms.mid}" data-id="{$obj.vod_id}" data-sid="{$param.sid}" data-nid="{$param.nid}"></span>
+    <span class="mac_hits hide" data-mid="{$maccms.mid}" data-id="{$obj.vod_id}" data-type="hits"></span>
+    {include file="block/copy"}
+	{include file="block/foot"}
+</body>
+</html>

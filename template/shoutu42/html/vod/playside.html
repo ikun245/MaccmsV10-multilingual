@@ -1,0 +1,59 @@
+<div class="player-box-side">
+				<div class="module-heading">
+					<h2 class="module-title">在线观看</h2>
+					<div class="module-tab module-player-tab player-side-tab">
+					    <input type="hidden" name="tab" id="tab" class="module-tab-input">
+					    <label class="module-tab-name"><span class="module-tab-value">{$obj['vod_play_list'][$param['sid']]['player_info']['show']}</span><i class="icon-arrow-bottom-o"></i></label>
+						<div class="module-tab-items">
+							<div class="module-tab-title">播放节点列表<span class="close-drop"><i class="icon-close-o"></i></span></div>
+							<div class="module-tab-content">
+							    {maccms:foreach name="obj.vod_play_list" id="vo" by="sort"}	 
+							    {if condition="$param.sid eq $vo.sid"} 
+								<div class="module-tab-item tab-item selected">
+								<span data-dropdown-value="{$vo.player_info.show}">{$vo.player_info.show}</span><small>{$vo.url_count}</small>
+								</div>
+								{else}
+								<a class="module-tab-item tab-item" href="{:mac_url_vod_play($obj,['sid'=>$vo.sid,'nid'=>$param.nid])}">
+								<span data-dropdown-value="{$vo.player_info.show}">{$vo.player_info.show}</span><small>{$vo.url_count}</small>
+								</a>
+							    {/if}
+                             {/maccms:foreach}	
+							</div>
+						</div>
+					</div>
+					<div class="shortcuts-m-overlay"></div>
+				</div>
+				{maccms:foreach name="obj.vod_play_list" id="vo" by="sort"}	
+				<div class="module-list module-player-list tab-list sort-list {if condition="$obj.type_id_1 eq 3 || $obj.type_id eq 3 || $obj.type_id_1 eq 1 || $obj.type_id eq 1"}module-vod-list{/if} {if condition="$param.sid eq $vo.sid"} selected{/if} player-side-playlist">
+					<div class="module-tab module-sorttab">
+					    <input type="hidden" name="tab-sort" id="tab-sort" class="module-tab-input">
+					    <label class="module-tab-name"><i class="icon-sort"></i></label>
+						<div class="module-tab-items">
+							<div class="module-tab-title">选集<span class="close-drop"><i class="icon-close-o"></i></span>
+							<a class="desc sort-button" href="javascript:void(0);" to="#sort-item-{$key}"><i class="icon-sort"></i>排序</a></div>
+							<div class="module-tab-content">
+								<div class="module-blocklist">
+									<div class="sort-item" id="sort-item-{$key}">
+								{maccms:foreach name="vo.urls" id="vo2" key="key2" } 
+                                <a href="{:mac_url_vod_play($obj,['sid'=>$vo.sid,'nid'=>$vo2.nid])}" class="{if condition="$param.sid eq $vo.sid && $param.nid eq $vo2.nid"}selected{/if}"  title="播放{$obj.vod_name}{$vo2.name}"><span>{$vo2.name}</span>
+                            {if condition="$param.sid eq $vo.sid && $param.nid eq $vo2.nid"}<div class="playon"><i></i><i></i><i></i><i></i></div>{/if}
+                                </a>
+                                {/maccms:foreach}             
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="shortcuts-m-overlay"></div>
+					<div class="module-blocklist scroll-box scroll-box-y">
+						<div class="scroll-content">
+    					{maccms:foreach name="vo.urls" id="vo2" key="key2" } 
+                        <a href="{:mac_url_vod_play($obj,['sid'=>$vo.sid,'nid'=>$vo2.nid])}" class="{if condition="$param.sid eq $vo.sid && $param.nid eq $vo2.nid"}selected{/if}" title="播放{$obj.vod_name}{$vo2.name}"><span>{$vo2.name}</span>
+                          {if condition="$param.sid eq $vo.sid && $param.nid eq $vo2.nid"}<div class="playon"><i></i><i></i><i></i><i></i></div>{/if}
+                        </a>
+                         {/maccms:foreach} 
+						</div>
+					</div>
+				</div>
+		  {/maccms:foreach}  
+			</div>

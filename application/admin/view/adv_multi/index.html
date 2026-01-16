@@ -1,0 +1,297 @@
+{include file="../../../application/admin/view/public/head" /}
+<style>
+    .lang-item { display: none; }
+    .lang-item.active { display: block; }
+    .ad-item { border: 1px solid #e6e6e6; padding: 10px; margin-bottom: 10px; background: #fcfcfc; }
+    .ad-item .layui-form-label { width: 100px; }
+    .ad-item .layui-input-block { margin-left: 130px; }
+</style>
+<div class="page-container">
+    <form class="layui-form layui-form-pane" action="">
+        <div class="layui-tab" lay-filter="tb1">
+            <ul class="layui-tab-title">
+                <li class="layui-this">导航栏横幅广告</li>
+                <li>播放页广告</li>
+                <li>弹窗公告</li>
+            </ul>
+            <div class="layui-tab-content">
+                
+                <!-- Banner Tab -->
+                <div class="layui-tab-item layui-show">
+                    <blockquote class="layui-elem-quote layui-quote-nm">
+                        提示：导航栏下方的长图片广告，支持多语言。
+                        <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="add-banner">添加广告位</button>
+                    </blockquote>
+                    <div id="banner-list">
+                        {volist name="config.banner" id="vo" key="k"}
+                        <div class="ad-item">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">广告名称</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="banner[{$k}][name]" value="{$vo.name}" class="layui-input" placeholder="备注名称">
+                                </div>
+                                <div class="layui-input-inline">
+                                    <input type="checkbox" name="banner[{$k}][status]" title="启用" value="1" {if condition="$vo['status'] eq 1"}checked{/if}>
+                                </div>
+                                <div class="layui-input-inline">
+                                    <button type="button" class="layui-btn layui-btn-danger layui-btn-sm del-item">删除</button>
+                                </div>
+                            </div>
+                            
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">语言选择</label>
+                                <div class="layui-input-inline">
+                                    <select lay-filter="lang-select">
+                                        {foreach name="languages" item="lang_name" key="lang_key"}
+                                        <option value="{$lang_key}">{$lang_name}</option>
+                                        {/foreach}
+                                    </select>
+                                </div>
+                            </div>
+
+                            {foreach name="languages" item="lang_name" key="lang_key"}
+                            <div class="lang-item {if condition='$lang_key eq "chinese_simplified"'}active{/if}" data-lang="{$lang_key}">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">图片地址</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="banner[{$k}][lang][{$lang_key}][img]" value="{$vo['lang'][$lang_key]['img']|default=''}" class="layui-input upload-input">
+                                        <button type="button" class="layui-btn layui-btn-primary layui-upload-btn" style="margin-top: 5px;">上传图片</button>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">跳转链接</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="banner[{$k}][lang][{$lang_key}][link]" value="{$vo['lang'][$lang_key]['link']|default=''}" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            {/foreach}
+                        </div>
+                        {/volist}
+                    </div>
+                </div>
+
+                <!-- Player Tab -->
+                <div class="layui-tab-item">
+                    <blockquote class="layui-elem-quote layui-quote-nm">
+                        提示：播放页竖直排列的广告。
+                        <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="add-player">添加广告位</button>
+                    </blockquote>
+                    <div id="player-list">
+                        {volist name="config.player" id="vo" key="k"}
+                        <div class="ad-item">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">广告名称</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="player[{$k}][name]" value="{$vo.name}" class="layui-input" placeholder="备注名称">
+                                </div>
+                                <div class="layui-input-inline">
+                                    <input type="checkbox" name="player[{$k}][status]" title="启用" value="1" {if condition="$vo['status'] eq 1"}checked{/if}>
+                                </div>
+                                <div class="layui-input-inline">
+                                    <button type="button" class="layui-btn layui-btn-danger layui-btn-sm del-item">删除</button>
+                                </div>
+                            </div>
+                            
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">语言选择</label>
+                                <div class="layui-input-inline">
+                                    <select lay-filter="lang-select">
+                                        {foreach name="languages" item="lang_name" key="lang_key"}
+                                        <option value="{$lang_key}">{$lang_name}</option>
+                                        {/foreach}
+                                    </select>
+                                </div>
+                            </div>
+
+                            {foreach name="languages" item="lang_name" key="lang_key"}
+                            <div class="lang-item {if condition='$lang_key eq "chinese_simplified"'}active{/if}" data-lang="{$lang_key}">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">图片地址</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="player[{$k}][lang][{$lang_key}][img]" value="{$vo['lang'][$lang_key]['img']|default=''}" class="layui-input upload-input">
+                                        <button type="button" class="layui-btn layui-btn-primary layui-upload-btn" style="margin-top: 5px;">上传图片</button>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">跳转链接</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="player[{$k}][lang][{$lang_key}][link]" value="{$vo['lang'][$lang_key]['link']|default=''}" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            {/foreach}
+                        </div>
+                        {/volist}
+                    </div>
+                </div>
+
+                <!-- Popup Tab -->
+                <div class="layui-tab-item">
+                    <blockquote class="layui-elem-quote layui-quote-nm">
+                        提示：每天弹出一次的网站公告。
+                    </blockquote>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">开启状态</label>
+                        <div class="layui-input-block">
+                            <input type="checkbox" name="popup[status]" title="启用" value="1" {if condition="$config['popup']['status'] eq 1"}checked{/if}>
+                        </div>
+                    </div>
+                    
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">语言选择</label>
+                        <div class="layui-input-inline">
+                            <select lay-filter="lang-select">
+                                {foreach name="languages" item="lang_name" key="lang_key"}
+                                <option value="{$lang_key}">{$lang_name}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                    </div>
+
+                    {foreach name="languages" item="lang_name" key="lang_key"}
+                    <div class="lang-item {if condition='$lang_key eq "chinese_simplified"'}active{/if}" data-lang="{$lang_key}">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">公告图片</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="popup[lang][{$lang_key}][img]" value="{$config['popup']['lang'][$lang_key]['img']|default=''}" class="layui-input upload-input">
+                                <button type="button" class="layui-btn layui-btn-primary layui-upload-btn" style="margin-top: 5px;">上传图片</button>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">跳转链接</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="popup[lang][{$lang_key}][link]" value="{$config['popup']['lang'][$lang_key]['link']|default=''}" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    {/foreach}
+                </div>
+
+            </div>
+        </div>
+        <div class="layui-form-item center">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formSubmit">保 存</button>
+                <button class="layui-btn layui-btn-warm" type="reset">还 原</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Template for new Banner/Player Item -->
+<script type="text/html" id="tpl-ad-item">
+    <div class="ad-item">
+        <div class="layui-form-item">
+            <label class="layui-form-label">广告名称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="{{d.type}}[{{d.index}}][name]" value="" class="layui-input" placeholder="备注名称">
+            </div>
+            <div class="layui-input-inline">
+                <input type="checkbox" name="{{d.type}}[{{d.index}}][status]" title="启用" value="1" checked>
+            </div>
+            <div class="layui-input-inline">
+                <button type="button" class="layui-btn layui-btn-danger layui-btn-sm del-item">删除</button>
+            </div>
+        </div>
+        
+        <div class="layui-form-item">
+            <label class="layui-form-label">语言选择</label>
+            <div class="layui-input-inline">
+                <select lay-filter="lang-select">
+                    {foreach name="languages" item="lang_name" key="lang_key"}
+                    <option value="{$lang_key}">{$lang_name}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+
+        {foreach name="languages" item="lang_name" key="lang_key"}
+        <div class="lang-item {if condition='$lang_key eq "chinese_simplified"'}active{/if}" data-lang="{$lang_key}">
+            <div class="layui-form-item">
+                <label class="layui-form-label">图片地址</label>
+                <div class="layui-input-block">
+                    <input type="text" name="{{d.type}}[{{d.index}}][lang][{$lang_key}][img]" value="" class="layui-input upload-input">
+                    <button type="button" class="layui-btn layui-btn-primary layui-upload-btn" style="margin-top: 5px;">上传图片</button>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">跳转链接</label>
+                <div class="layui-input-block">
+                    <input type="text" name="{{d.type}}[{{d.index}}][lang][{$lang_key}][link]" value="" class="layui-input">
+                </div>
+            </div>
+        </div>
+        {/foreach}
+    </div>
+</script>
+
+<script>
+layui.use(['form', 'layer', 'upload', 'laytpl'], function(){
+    var form = layui.form;
+    var layer = layui.layer;
+    var upload = layui.upload;
+    var laytpl = layui.laytpl;
+    var $ = layui.jquery;
+
+    // Language Switcher
+    form.on('select(lang-select)', function(data){
+        var lang = data.value;
+        var parent = $(data.elem).closest('.ad-item, .layui-tab-item');
+        parent.find('.lang-item').removeClass('active');
+        parent.find('.lang-item[data-lang="'+lang+'"]').addClass('active');
+    });
+
+    // Add Banner
+    $('#add-banner').click(function(){
+        var index = $('#banner-list .ad-item').length + 1;
+        var data = { type: 'banner', index: 'new_' + index };
+        var getTpl = document.getElementById('tpl-ad-item').innerHTML;
+        laytpl(getTpl).render(data, function(html){
+            $('#banner-list').append(html);
+            form.render();
+            initUpload();
+        });
+    });
+
+    // Add Player
+    $('#add-player').click(function(){
+        var index = $('#player-list .ad-item').length + 1;
+        var data = { type: 'player', index: 'new_' + index };
+        var getTpl = document.getElementById('tpl-ad-item').innerHTML;
+        laytpl(getTpl).render(data, function(html){
+            $('#player-list').append(html);
+            form.render();
+            initUpload();
+        });
+    });
+
+    // Delete Item
+    $(document).on('click', '.del-item', function(){
+        $(this).closest('.ad-item').remove();
+    });
+
+    // Init Upload
+    function initUpload() {
+        $('.layui-upload-btn').each(function(){
+            var btn = $(this);
+            var input = btn.prev('.upload-input');
+            upload.render({
+                elem: this,
+                url: "{:mac_url('upload/upload')}?flag=ad",
+                done: function(res){
+                    if(res.code == 1){
+                        input.val(res.data.file);
+                        layer.msg('上传成功');
+                    } else {
+                        layer.msg('上传失败：' + res.msg);
+                    }
+                }
+            });
+        });
+    }
+    initUpload();
+
+});
+</script>
+{include file="../../../application/admin/view/public/foot" /}

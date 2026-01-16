@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+    {include file="public/include"}
+    <?php 
+    $currentYear = date('Y'); 
+    $lastYear = date('Y', strtotime('-1 year')); 
+    $years = $currentYear . ',' . $lastYear;
+    ?>
+	</head>
+<body class="page">
+    {include file="public/head"}  
+    
+    <main id="main" class="wrapper">
+      <div class="content">
+        {include file="module/type_nav"}  
+
+        {include file="module/type_hot"}  
+
+     
+        {if condition="!$obj.childids eq '' "} 
+        
+        {include file="module/type_childids"}  
+  
+        {else}
+        
+        {include file="module/type_area"}  
+   
+        {/if}
+    </div>
+    
+    <div class="module-footer module-type">
+     <a href="{:mac_url_type($obj,[],'show')}" class="load-all" title="全部{$obj.type_name}">全部{$obj.type_name}<i class="icon-arrow-right-o"></i></a>
+    </div>
+    </main>
+      {include file="public/foot"}
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>用户注册 - {$maccms.site_name}</title>
+    <meta name="keywords" content="{$maccms.site_keywords}" />
+    <meta name="description" content="{$maccms.site_description}" />
+    {include file="block/include"}
+    <style>
+        .login-page { padding: 50px 0; background: #f5f5f5; min-height: 600px; }
+        .login-form { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); max-width: 400px; margin: 0 auto; }
+        .login-form h2 { margin-top: 0; margin-bottom: 20px; text-align: center; font-size: 24px; color: #333; }
+        .login-form .form-group { margin-bottom: 15px; }
+        .login-form .form-control { height: 45px; border-radius: 4px; }
+        .login-form .btn-login { width: 100%; height: 45px; background: #ff5c7c; border: none; color: #fff; font-size: 16px; border-radius: 4px; cursor: pointer; }
+        .login-form .btn-login:hover { background: #ff3d63; }
+        .login-form .verify-img { height: 45px; cursor: pointer; float: right; }
+        .login-form .verify-input { width: 60%; display: inline-block; }
+        .login-form .links { margin-top: 15px; text-align: center; }
+        .login-form .links a { color: #ff5c7c; }
+    </style>
+</head>
+<body>
+    {include file="block/head"}
+    <div class="login-page">
+        <div class="container">
+            <div class="login-form">
+                <h2>用户注册</h2>
+                <form method="post" id="fm" action="">
+                    <input type="hidden" name="ac" value="email">
+                    <div class="form-group">
+                        <input type="text" id="user_name" name="user_name" class="form-control" placeholder="账号" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="to" name="to" class="form-control" placeholder="邮箱" required>
+                    </div>
+                    <div class="form-group clearfix">
+                        <input type="text" id="code" name="code" class="form-control verify-input" placeholder="邮箱验证码" required>
+                        <button type="button" id="btn_send_code" class="btn-login" style="width: 35%; float: right; font-size: 12px;">发送验证码</button>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="user_pwd" name="user_pwd" class="form-control" placeholder="密码" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="user_pwd2" name="user_pwd2" class="form-control" placeholder="确认密码" required>
+                    </div>
+                    {if condition="$GLOBALS['config']['user']['reg_verify'] eq 1"}
+                    <div class="form-group clearfix">
+                        <input type="text" id="verify" name="verify" class="form-control verify-input" placeholder="验证码" required>
+                        <img class="verify-img" id="verify_img" src="{:mac_url('verify/index')}" onClick="this.src=this.src+'?'" alt="单击刷新" />
+                    </div>
+                    {/if}
+                    <button type="button" id="btn_submit" class="btn-login">立即注册</button>
+                </form>
+                <div class="links">
+                    已有账号？<a href="{:mac_url('user/login')}">立即登录</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {include file="block/foot"}
+    <script type="text/javascript">
+        $(function () {
+            $("body").bind('keyup', function (event) {
+                if (event.keyCode == 13) { $('#btn_submit').click(); }
+            });
+
+            var countdown = 60;
+            function settime(obj) {
+                if (countdown == 0) {
+                    obj.removeAttr("disabled");
+                    obj.text("发送验证码");
+                    countdown = 60;
+                    return;
+                } else {
+                    obj.attr("disabled", true);
+                    obj.text("重新发送(" + countdown + ")");
+                    countdown--;
+                }
+                setTimeout(function () {
+                    settime(obj)
+                }, 1000)
+            }
+
+            $('#btn_send_code').click(function () {
+                var email = $('#to').val();
+                var pattern = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+                if (email == '' || !pattern.test(email)) {
+                    alert('请输入正确的邮箱地址！');
+                    $('#to').focus();
+                    return false;
+                }
+
+                var verify = $('#verify').val();
+                if ($('#verify').length > 0 && verify == '') {
+                    alert('请先输入图形验证码！');
+                    $('#verify').focus();
+                    return false;
+                }
+
+                $.ajax({
+                    url: "{:mac_url('user/reg_msg')}",
+                    type: "post",
+                    dataType: "json",
+                    data: { ac: 'email', to: email, verify: verify },
+                    beforeSend: function () {
+                        $("#btn_send_code").attr("disabled", true);
+                    },
+                    success: function (r) {
+                        alert(r.msg);
+                        if (r.code == 1) {
+                            settime($("#btn_send_code"));
+                        } else {
+                            $("#btn_send_code").removeAttr("disabled");
+                            $('#verify_img').click();
+                        }
+                    }
+                });
+            });
+
+            $('#btn_submit').click(function () {
+                if ($('#user_name').val() == '') { alert('请输入用户名！'); $("#user_name").focus(); return false; }
+                if ($('#to').val() == '') { alert('请输入邮箱！'); $("#to").focus(); return false; }
+                if ($('#code').val() == '') { alert('请输入邮箱验证码！'); $("#code").focus(); return false; }
+                if ($('#user_pwd').val() == '') { alert('请输入密码！'); $("#user_pwd").focus(); return false; }
+                if ($('#user_pwd2').val() == '') { alert('请确认密码！'); $("#user_pwd2").focus(); return false; }
+                if ($('#user_pwd').val() != $('#user_pwd2').val()) { alert('两次密码输入不一致！'); return false; }
+                if ($('#verify').length > 0 && $('#verify').val() == '') { alert('请输入图形验证码！'); $("#verify").focus(); return false; }
+
+                $.ajax({
+                    url: "{:mac_url('user/reg')}",
+                    type: "post",
+                    dataType: "json",
+                    data: $('#fm').serialize(),
+                    beforeSend: function () {
+                        $("#btn_submit").text("正在注册...");
+                    },
+                    success: function (r) {
+                        alert(r.msg);
+                        if (r.code == 1) {
+                            location.href = "{:mac_url('user/login')}";
+                        } else {
+                            $('#verify_img').click();
+                        }
+                    },
+                    complete: function () {
+                        $("#btn_submit").text("立即注册");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

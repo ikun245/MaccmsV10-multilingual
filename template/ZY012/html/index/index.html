@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+<!--
+.STYLE1 {font-size: 14px}
+.STYLE2 {color: #FF9900}
+-->
+</style>
+    {include file="seo/index"}   
+	{include file="block/include"}
+</head>
+<body>
+	
+    <div class="container">
+        <div class="row">
+        	<div class="stui-pannel">
+        		<div class="stui-pannel__hd">
+        			{include file="block/head"}
+        		</div>
+        		<div class="stui-pannel__bd">
+        			<h3 class="title">
+					最新更新
+                      <a class="pull-right" ><span class="STYLE1">本站共有视频资源:<span class="STYLE2">{:mac_data_count(0,'all','vod')}</span>部 今日更新:<span class="STYLE2">{:mac_data_count(0,'today','vod')}</span>部 </span></a>				</h3>
+        			<ul class="stui-vodlist clearfix">
+						{maccms:vod num="50" paging="yes" pageurl="index/index" type="all" order="desc" by="time"}
+						<li>
+							{include file="block/vod_box"}											
+						</li>
+						{/maccms:vod}
+					</ul>
+        		</div>
+        		<div class="stui-pannel_ft">
+        			{include file="block/page"}
+        		</div>
+				<div class="stui-pannel_ft col-pd">
+					<!-- 友链 -->
+					<ul class="stui-link__text clearfix">
+						<li><span>友情链接：</span></li>		
+						{maccms:link num="all" type="font"}
+						<li><a href="{$vo.link_url}" title="{$vo.link_name}" target="_blank">{$vo.link_name}</a></li>								
+						{/maccms:link}
+					</ul>
+					<!-- end 友链 -->
+				</div>
+        	</div>        	
+        </div>
+    </div>
+    {include file="block/copy"}
+	{include file="block/foot"}
+</body>
+</html>

@@ -1,0 +1,21 @@
+    {if condition="$for.is && $for.block eq 'vod_list3'"} 
+    <div class="module">
+		<div class="module-heading">
+			<h2 class="module-title">{$for.title}</h2>
+		</div>
+		<div class="module-list module-line-list tab-list selected">
+			<div class="module-items scroll-box">
+				<div class="scroll-content">
+		        {maccms:foreach name=":config_vodlist($for,8,$obj.vod_id)" id="vo" key="key"}
+		        {include file="block/vod_box"}  
+		        {/maccms:foreach}
+				</div>
+			</div>
+			{if $for.subval}
+			<div class="module-footer">
+			    <a href="{$for.subval}" class="load-all" title="{$for.subval}">更多<i class="icon-arrow-right-o"></i></a>
+			 </div>
+			{/if}
+		</div>
+	</div>
+	{/if}  	

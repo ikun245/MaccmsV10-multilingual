@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+    {include file="public/include"}
+	</head>
+<body class="search page">
+      {include file="public/head"}
+      <main id="main" class="wrapper">
+  <div class="content">
+    {include file="vod/searchbox"}
+    <div class="module">
+      <div class="module-list">
+        <div class="module-items">
+            {maccms:vod num="10" paging="yes" pageurl="vod/search" order="desc" by="time"} 
+            {include file="block/vod_box2"} 
+            {/maccms:vod} 
+            </div>
+            {include file="public/paging"} 
+             </div>
+         </div>
+      </div>
+    </main>
+    <script>
+      $(".mac_total").text('{$__PAGING__.record_total}');
+    </script>
+    {include file="public/foot"}
+</body>
+</html>
+

@@ -1,0 +1,31 @@
+{if config_aid_so($maccms.aid)}
+{maccms:foreach name=":config_aid()" id="vo2" key="key2"}
+{if condition="$maccms.aid eq $vo2"}
+{if condition="$shoutu['seo'.$vo2]['diy'] eq '1'"}
+{if condition="$vo2 eq '1'"}{include file="seo/home"}{/if}
+{if condition="$vo2 eq '2'"}{include file="seo/map"}{/if}
+{if condition="$vo2 eq '4'"}{include file="seo/gbook"}{/if}
+{if condition="$vo2 eq '10'"}{include file="seo/vod_index"}{/if}
+{if condition="$vo2 eq '11'"}{include file="seo/vod_type"}{/if}
+{if condition="$vo2 eq '12'"}{include file="seo/vod_show"}{/if}
+{if condition="$vo2 eq '13'"}{include file="seo/vod_search"}{/if}
+{if condition="$vo2 eq '14'"}{include file="seo/vod_detail"}{/if}
+{if condition="$vo2 eq '15'"}{include file="seo/vod_play"}{/if}
+{if condition="$vo2 eq '30'"}{include file="seo/topic_index"}{/if}
+{if condition="$vo2 eq '31'"}{include file="seo/topic_detail"}{/if}
+{else}
+<title>{if condition="$maccms.aid eq '13'"}{$param.wd}{$param.actor}{$param.director}{$param.area}{$param.lang}{$param.year}{$param.class}{/if}{:config_seo($maccms,$obj,$shoutu['seo'.$vo2]['title'])}</title>
+<meta name="keywords" content="{:config_seo($maccms,$obj,$shoutu['seo'.$vo2]['key'])}" />
+<meta name="description" content="{:config_seo($maccms,$obj,$shoutu['seo'.$vo2]['des'])}" />
+{/if}
+{/if}
+{/maccms:foreach}
+{else}
+{if $shoutu['seo0']['diy']}
+{include file="seo/more"}
+{else}
+<title>{:config_seo($maccms,$obj,$shoutu['seo0']['title'])}</title>
+<meta name="keywords" content="{:config_seo($maccms,$obj,$shoutu['seo0']['key'])}" />
+<meta name="description" content="{:config_seo($maccms,$obj,$shoutu['seo0']['des'])}" />
+{/if}
+{/if}
